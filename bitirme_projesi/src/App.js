@@ -1,21 +1,34 @@
 import MainPage from "./pages/MainPage";
 
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
 
 import "./App.css";
+import Movies from "./pages/MOvies";
+import Series from "./pages/Series";
+import OldButGold from "./pages/OldButGold";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/" element={<MainPage />} />
+      <Route path="movies" element={<Movies />} />
+      <Route path="series" element={<Series />} />
+      <Route path="oldbutgold" element={<OldButGold />} />
+    </>
+  )
+);
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          {/* Add more routes for additional pages */}
-        </Routes>
-      </div>
-    </Router>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
