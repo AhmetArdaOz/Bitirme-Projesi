@@ -94,7 +94,6 @@ export default function MainPage() {
               </CardContent>
             </Card>
           </Grid>
-          {/* Add more Grid items for additional movies */}
         </Grid>
       </Container>
     </div>
