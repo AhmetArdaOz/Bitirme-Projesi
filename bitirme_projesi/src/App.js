@@ -2,7 +2,7 @@ import MainPage from "./pages/MainPage";
 
 import React from "react";
 import {
-  BrowserRouter,
+
   Route,
   createBrowserRouter,
   createRoutesFromElements,
@@ -19,11 +19,10 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<RootLayout/>}>
-        <Route path="/" element={<MainPage />} >
-            <Route path="movies" element={<Movies />} />
-            <Route path="series" element={<Series />} />
-            <Route path="oldbutgold" element={<OldButGold />} />
-        </Route>
+        <Route path="/" element={<MainPage />} />
+        <Route path="movies" element={<Movies />} />
+        <Route path="series" element={<Series />} />
+        <Route path="oldbutgold" element={<OldButGold />} />
       </Route>
     </>
   )
