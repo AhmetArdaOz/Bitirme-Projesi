@@ -1,5 +1,10 @@
 import React from "react";
+import "../styling/MOvies.css"
 
 export default function Movies() {
-  return <text>Movies</text>;
+  return (
+      <div className="title">
+        <text>Movies</text>
+      </div>
+  );
 }

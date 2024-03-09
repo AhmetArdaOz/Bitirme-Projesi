@@ -9,20 +9,21 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import "./App.css";
+import "./styling/App.css";
 import Movies from "./pages/MOvies";
 import Series from "./pages/Series";
 import OldButGold from "./pages/OldButGold";
+import RootLayout from "./layout/RootLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/" element={<MainPage />} />
-        <Route path="movies" element={<Movies />} />
-        <Route path="series" element={<Series />} />
-        <Route path="oldbutgold" element={<OldButGold />} />
+      <Route path="/" element={<RootLayout/>}>
+        <Route path="/" element={<MainPage />} >
+            <Route path="movies" element={<Movies />} />
+            <Route path="series" element={<Series />} />
+            <Route path="oldbutgold" element={<OldButGold />} />
+        </Route>
       </Route>
     </>
   )
