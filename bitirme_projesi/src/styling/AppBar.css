@@ -1,0 +1,47 @@
+.Bar {
+    text-align: center;
+}
+
+.AppBar {
+    background-color: #000 !important;
+    border-bottom: 3px solid #e50914;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.AppBar-Toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Drawer {
+    width: 240px; /* Adjust the width as needed */
+}
+
+.Drawer-List {
+    width: 100%;
+    padding: 0;
+}
+
+.Drawer-ListItem {
+    width: 100%;
+    text-align: left;
+}
+
+.Drawer-ListItem:hover {
+    background-color: #f0f0f0; /* Adjust the hover background color */
+}
+
+.Drawer-ListItemText {
+    margin-left: 16px;
+}
+
+.Container {
+    margin: auto;
+}
+
+.MainContent {
+    padding-top: 80px; /* Adjust padding-top to make space for the app bar */
+}
+
