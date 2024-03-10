@@ -14,7 +14,7 @@ export const movieData =[
 
     {
         id:3,
-        title:"Spider-man",
+        title:"SPIDER-MAN",
         genre:"Superhero",
         imageUrl:"https://upload.wikimedia.org/wikipedia/en/6/6c/Spider-Man_%282002_film%29_poster.jpg"
     },
@@ -27,7 +27,7 @@ export const movieData =[
     {
         id:5,
         title:"Avatar The Last Airbender",
-        genre:"Child",
+        genre:"Adventure",
         imageUrl:"https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p186109_b_v8_aa.jpg"
     },
     {

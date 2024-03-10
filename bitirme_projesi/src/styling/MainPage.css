@@ -1,8 +1,13 @@
-/* Resetting default margin and padding */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+.title{
+    font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bolder;
+    text-align: left;
 }
 
 body {

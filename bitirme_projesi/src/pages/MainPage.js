@@ -19,6 +19,9 @@ export default function MainPage() {
     return (
         <div className="App">
             <Container className="MainContent">
+                <Typography className="title" variant="h2" component="h2" style={{fontSize:"30px"}}>
+                    Featured Movies
+                </Typography>
                 <Slider {...settings}>
                     {movieData.map((movie) => (
                         <div key={movie.id} className="MovieCard">
