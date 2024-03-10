@@ -11,42 +11,42 @@ body {
     color: #fff;
 }
 
-
 .App {
     display: flex;
     justify-content: center;
 }
 
-
-
-.Container {
-    max-width: 1200px;
-    padding: 20px;
-}
-
-
 .MainContent {
     padding-top: 80px;
 }
 
-
-.MovieList {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+.slick-slider {
+    width: 100%;
 }
 
+.slick-list {
+    overflow: hidden;
+}
+
+.slick-slide {
+    padding: 0 8px;
+}
 
 .MovieCard {
     background-color: #333;
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease;
-    margin:auto;
+    margin: auto;
 }
 
 .MovieCard:hover {
     transform: scale(1.05);
+}
+
+
+.MovieCard-Container{
+    height: 400px;
 }
 
 .MovieCard-Image {
@@ -55,17 +55,14 @@ body {
     object-fit: cover;
 }
 
-
 .MovieCard-Content {
     padding: 15px;
 }
-
 
 .MovieCard-Title {
     font-size: 18px;
     margin-bottom: 10px;
 }
-
 
 .MovieCard-Genre {
     font-size: 14px;
