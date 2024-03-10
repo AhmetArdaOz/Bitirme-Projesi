@@ -12,8 +12,9 @@ import {
 import "./styling/App.css";
 import Movies from "./pages/MOvies";
 import Series from "./pages/Series";
-import OldButGold from "./pages/OldButGold";
+import NewAndPopular from "./pages/NewAndPopular";
 import RootLayout from "./layout/RootLayout";
+import MyList from "./pages/MyList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,7 +23,8 @@ const router = createBrowserRouter(
         <Route index element={<MainPage />} />
         <Route path="movies" element={<Movies />} />
         <Route path="series" element={<Series />} />
-        <Route path="oldbutgold" element={<OldButGold />} />
+        <Route path="new&popular" element={<NewAndPopular />} />
+        <Route path="mylist" element={<MyList/>}/>
       </Route>
     </>
   )

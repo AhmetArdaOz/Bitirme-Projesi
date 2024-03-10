@@ -55,8 +55,11 @@ export default function MainBar(){
                     <ListItem className="Drawer-ListItem" button onClick={() => handleDrawerItemClick("series")}>
                         <ListItemText className="Drawer-ListItemText" primary="Series" />
                     </ListItem>
-                    <ListItem className="Drawer-ListItem" button onClick={() => handleDrawerItemClick("oldbutgold")}>
-                        <ListItemText className="Drawer-ListItemText" primary="Old but Gold" />
+                    <ListItem className="Drawer-ListItem" button onClick={() => handleDrawerItemClick("new&popular")}>
+                        <ListItemText className="Drawer-ListItemText" primary="New & Popular" />
+                    </ListItem>
+                    <ListItem className="Drawer-ListItem" button onClick={() => handleDrawerItemClick("mylist")}>
+                        <ListItemText className="Drawer-ListItemText" primary="My List" />
                     </ListItem>
                 </List>
             </Drawer>

@@ -2,10 +2,10 @@ import React from "react";
 
 import "../styling/OldButGold.css"
 
-export default function OldButGold() {
+export default function NewAndPopular() {
   return (
       <div className="title">
-        <text>OldButgold</text>
+        <text>NewAndPopular</text>
       </div>
 
   );
