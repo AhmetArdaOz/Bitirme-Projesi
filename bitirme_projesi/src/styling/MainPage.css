@@ -6,12 +6,12 @@
 }
 
 body {
-    font-family: Arial, sans-serif; /* Change font family to match Netflix */
-    background-color: rgba(0, 0, 0, 0.89); /* Set background color */
-    color: #fff; /* Set text color */
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.89);
+    color: #fff;
 }
 
-/* Centering the App content */
+
 .App {
     display: flex;
     justify-content: center;
@@ -40,34 +40,33 @@ body {
 .MovieCard {
     background-color: #333;
     border-radius: 10px;
-    overflow: hidden; /* Hide overflow content */
-    transition: transform 0.3s ease; /* Add transition for smooth hover effect */
+    overflow: hidden;
+    transition: transform 0.3s ease;
     margin:auto;
 }
 
 .MovieCard:hover {
-    transform: scale(1.05); /* Scale up on hover */
+    transform: scale(1.05);
 }
 
-/* Styling for MovieCard Image */
 .MovieCard-Image {
     width: 100%;
-    height: 280px; /* Set height */
-    object-fit: cover; /* Ensure image covers the container */
+    height: 280px;
+    object-fit: cover;
 }
 
-/* Styling for MovieCard Content */
+
 .MovieCard-Content {
     padding: 15px;
 }
 
-/* Styling for MovieCard Title */
+
 .MovieCard-Title {
-    font-size: 18px; /* Adjust font size */
-    margin-bottom: 10px; /* Add margin */
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
-/* Styling for MovieCard Genre */
+
 .MovieCard-Genre {
-    font-size: 14px; /* Adjust font size */
+    font-size: 14px;
 }
