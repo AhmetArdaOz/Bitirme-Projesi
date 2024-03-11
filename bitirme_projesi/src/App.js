@@ -2,7 +2,6 @@ import MainPage from "./pages/MainPage";
 
 import React from "react";
 import {
-
   Route,
   createBrowserRouter,
   createRoutesFromElements,
