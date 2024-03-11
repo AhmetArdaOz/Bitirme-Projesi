@@ -14,12 +14,16 @@ import Series from "./pages/Series";
 import NewAndPopular from "./pages/NewAndPopular";
 import RootLayout from "./layout/RootLayout";
 import MyList from "./pages/MyList";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<RootLayout/>}>
-        <Route index element={<MainPage />} />
+        <Route index element={<SignIn/>}/>
+        <Route path="signup" element={<SignUp/>}/>
+        <Route path="home" element={<MainPage />} />
         <Route path="movies" element={<Movies />} />
         <Route path="series" element={<Series />} />
         <Route path="new&popular" element={<NewAndPopular />} />

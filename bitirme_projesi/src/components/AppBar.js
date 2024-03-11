@@ -46,7 +46,7 @@ export default function MainBar(){
             </AppBar>
             <Drawer className="Drawer" anchor="left" open={drawerOpen} onClose={toggleDrawer}>
                 <List className="Drawer-List">
-                    <ListItem className="Drawer-ListItem" button onClick={() => handleDrawerItemClick("/")}>
+                    <ListItem className="Drawer-ListItem" button onClick={() => handleDrawerItemClick("home")}>
                         <ListItemText className="Drawer-ListItemText" primary="Home" />
                     </ListItem>
                     <ListItem className="Drawer-ListItem" button onClick={() => handleDrawerItemClick("movies")}>
