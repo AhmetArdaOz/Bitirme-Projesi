@@ -2,12 +2,14 @@ import React from "react";
 import { Typography, Container } from "@mui/material";
 import { Card, CardActionArea, CardContent, CardMedia } from "@mui/material";
 import { movieData } from "../constants/data";
+import Rating from '@mui/material/Rating';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styling/MainPage.css";
 
 export default function MainPage() {
+    const [value,setValue] = React.useState(2);
     const settings = {
         dots: true,
         infinite: true,
@@ -49,6 +51,14 @@ export default function MainPage() {
                                         >
                                             Genre: {movie.genre}
                                         </Typography>
+                                        <Rating
+                                            name="simple-controlled"
+                                            value={value}
+                                            onChange={(event, newValue) => {
+                                                setValue(newValue);
+                                            }}
+
+                                        />
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
