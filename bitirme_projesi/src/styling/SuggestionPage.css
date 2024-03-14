@@ -1,0 +1,55 @@
+.suggestion-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.suggestion-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeInTitle 1s ease-in forwards;
+}
+
+.suggestion-message {
+    font-size: 20px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeInMessage 1s ease-in forwards;
+}
+
+.next-button {
+    margin-top: 20px;
+}
+
+@keyframes fadeInTitle {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInMessage {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.ResultContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

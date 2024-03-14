@@ -16,13 +16,17 @@ import RootLayout from "./layout/RootLayout";
 import MyList from "./pages/MyList";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import SuggestionPage from "./pages/SuggestionPage";
+import WelcomePage from "./pages/WelcomePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<RootLayout/>}>
-        <Route index element={<SignIn/>}/>
+        <Route index element={<WelcomePage/>}/>
+        <Route path="signin" element={<SignIn/>}/>
         <Route path="signup" element={<SignUp/>}/>
+        <Route path="suggestion" element={<SuggestionPage/>}/>
         <Route path="home" element={<MainPage />} />
         <Route path="movies" element={<Movies />} />
         <Route path="series" element={<Series />} />
