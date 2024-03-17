@@ -29,7 +29,7 @@ export default function SuggestionPage() {
 
     const handleRateMovie = () => {
         if (watched) {
-            // Implement logic to save rating
+
         }
         setCurrentMovieIndex(prevIndex => prevIndex + 1);
         setWatched(false);
@@ -48,12 +48,22 @@ export default function SuggestionPage() {
 
     if (!currentMovie) {
         return (
-            <div className="suggestion-container">
-                <Container classname="ResultContainer">
+            <div className="finalMessage-container">
+                <Container>
                     <Typography variant="h4" className="suggestion-title">
-                    All set! Now you can press the go home button and enjoy the adventure!
-                    <Button variant="contained" classname="Button" component={RouterLink} to="/home">Go Home</Button>
+                        All set! Now you can press the go home button and enjoy the adventure!
                     </Typography>
+                    <div className="button-container">
+                        <Button
+                            sx={{backgroundColor: "#e50914", marginTop: "10px"}}
+                            variant="contained"
+                            className="Button"
+                            component={RouterLink}
+                            to="/home"
+                        >
+                            Go Home
+                        </Button>
+                    </div>
                 </Container>
             </div>
         );
@@ -65,40 +75,46 @@ export default function SuggestionPage() {
                 Welcome!
             </Typography>
             <Typography variant="body1" className="suggestion-message">
-                Can you help us personalize your experience? As you rate ten movies, our algorithm will better understand your preferences and offer tailored recommendations. Even if you haven't seen some of them, your input is valuable.
+                Can you help us personalize your experience? As you rate ten movies, our algorithm will better
+                understand your preferences and offer tailored recommendations. Even if you haven't seen some of them,
+                your input is valuable.
             </Typography>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
+            <Button sx={{backgroundColor:"#e50914", '&:hover':{backgroundColor:"#e34149"}}} variant="contained" onClick={handleOpen} className="button-container">
                 Next
             </Button>
-            <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth >
-                <DialogTitle>{currentMovie.title}</DialogTitle>
-                <DialogContent>
-                    <Typography variant="body1">
-                        Genre: {currentMovie.genre}
-                    </Typography>
-                    <img src={currentMovie.imageUrl} alt={currentMovie.title} style={{ maxWidth: '100%', marginTop: '10px' }} />
-                    <FormControlLabel
-                        control={<Checkbox checked={watched} onChange={handleWatchedChange} />}
-                        label="I watched this movie"
-                        style={{ marginTop: '20px' }}
-                    />
-                    {watched && (
-                        <div style={{ marginTop: '20px' }}>
-                            <Typography variant="body1" style={{ marginBottom: '10px' }}>Rate this movie:</Typography>
-                            <Rating
-                                value={rating}
-                                precision={0.5}
-                                onChange={handleRatingChange}
-                                max={5}
-                            />
-                        </div>
-                    )}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="secondary" >Close</Button>
-                    <Button onClick={handleRateMovie} color="primary" disabled={!watched}>Next</Button>
-                </DialogActions>
-            </Dialog>
+            <div >
+                <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth className="dialog-box">
+                    <DialogTitle className="dialogTitle">{currentMovie.title}</DialogTitle>
+                    <DialogContent className="dialogBody">
+                        <Typography variant="body1">
+                            Genre: {currentMovie.genre}
+                        </Typography>
+                        <img src={currentMovie.imageUrl} alt={currentMovie.title} className="movie-image"/>
+                        <FormControlLabel
+                            control={<Checkbox checked={watched} onChange={handleWatchedChange}/>}
+                            label="I watched this movie"
+                            className="watched-checkbox"
+                        />
+                        {watched && (
+                            <div className="rating-section">
+                                <Typography variant="body1" className="rate-text">Rate this movie:</Typography>
+                                <Rating
+                                    value={rating}
+                                    precision={0.5}
+                                    onChange={handleRatingChange}
+                                    max={5}
+                                    className="movie-rating"
+                                />
+                            </div>
+                        )}
+                    </DialogContent>
+                    <DialogActions className="dialogNavbar">
+                        <Button onClick={handleClose} sx={{color:'#e50914'}}>Close</Button>
+                        <Button onClick={handleRateMovie}  sx={{color:'#e50914'}} disabled={!watched}>Next</Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
         </div>
+
     );
 }

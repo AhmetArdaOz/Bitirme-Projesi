@@ -16,7 +16,7 @@ export const movieData =[
         id:3,
         title:"SPIDER-MAN",
         genre:"Superhero",
-        imageUrl:"https://upload.wikimedia.org/wikipedia/en/6/6c/Spider-Man_%282002_film%29_poster.jpg"
+        imageUrl:"https://tr.web.img2.acsta.net/pictures/bzp/01/29007.jpg"
     },
     {
         id:4,

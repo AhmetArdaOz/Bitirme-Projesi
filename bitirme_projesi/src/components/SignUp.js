@@ -16,18 +16,25 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Copyright(props) {
     return (
-            <Typography variant="body2" color="text.secondary" align="center" {...props}>
-                {'This website made by © Ahmet Arda Öz, Alp Efe Sezer, Kazım Utku Çitoğlu'}
-                {' '}
-                {new Date().getFullYear()}
-                {'.'}
-            </Typography>
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'This website made by © Ahmet Arda Öz, Alp Efe Sezer, Kazım Utku Çitoğlu'}
+            {' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
     );
 }
 
-
-
-const defaultTheme = createTheme();
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: "#e50914",
+        },
+        background: {
+            default: "rgba(0, 0, 0, 0.89)",
+        },
+    },
+});
 
 export default function SignUp() {
     const handleSubmit = (event) => {
@@ -40,8 +47,8 @@ export default function SignUp() {
     };
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs" sx={{backgroundColor:"white"}}>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -51,7 +58,7 @@ export default function SignUp() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <Avatar sx={{ m: 1, bgcolor: 'primary.main', }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">

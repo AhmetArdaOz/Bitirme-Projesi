@@ -6,12 +6,58 @@
     height: 100vh;
 }
 
+.finalMessage-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.dialog-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.89);
+}
+
+.dialog-box {
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dialog-content {
+    padding: 20px;
+}
+
+.movie-image {
+    max-width: 70%;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+
+.close-button {
+    color: red;
+}
+
+
 .suggestion-title {
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 20px;
+    text-align: center;
     opacity: 0;
     animation: fadeInTitle 1s ease-in forwards;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .suggestion-message {
@@ -22,7 +68,22 @@
 }
 
 .next-button {
-    margin-top: 20px;
+    color: #e50914;
+}
+
+.dialogBody{
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+
+}
+
+.dialogTitle{
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+.dialogNavbar{
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #e50914;
 }
 
 @keyframes fadeInTitle {
@@ -52,4 +113,8 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+.Button:hover {
+    background-color: #e34149 !important;
 }

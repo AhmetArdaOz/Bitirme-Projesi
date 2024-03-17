@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -25,9 +26,16 @@ function Copyright(props) {
     );
 }
 
-
-
-const defaultTheme = createTheme();
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: "#e50914",
+        },
+        background:{
+            default: "rgba(0, 0, 0, 0.89)"
+        }
+    },
+});
 
 export default function SignIn() {
     const handleSubmit = (event) => {
@@ -40,8 +48,8 @@ export default function SignIn() {
     };
 
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs" sx={{backgroundColor:"white", borderRadius:"10px",height:"%100"}}>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -51,10 +59,10 @@ export default function SignIn() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1" variant="h5" className="signInTitle">
                         Sign in
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
