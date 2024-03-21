@@ -7,7 +7,7 @@ import Rating from '@mui/material/Rating';
 const MoviePage = () => {
     const { id } = useParams();
 
-    // Find movie object with matching ID
+
     const movie = movieData.find(movie => movie.id === parseInt(id));
 
     if (!movie) {
@@ -33,7 +33,7 @@ const MoviePage = () => {
                 <h2 className="title">{movie.title}</h2>
                 <p className="genre">Genre: {movie.genre}</p>
                 <p className="explanation">{movie.explanation}</p>
-                {/* Display Rating */}
+
                 <Rating
                     name="movie-rating"
                     value={movie.rating || 0}
