@@ -9,9 +9,9 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Rating from '@mui/material/Rating';
-import { movieData } from '../constants/data';
+import { movieData } from '../constants/data'; // Assuming you have movieData.js
 import '../styling/SuggestionPage.css';
-import {Container} from "@mui/material";
+import { Container } from "@mui/material";
 
 export default function SuggestionPage() {
     const [open, setOpen] = useState(false);
@@ -29,7 +29,8 @@ export default function SuggestionPage() {
 
     const handleRateMovie = () => {
         if (watched) {
-
+            // Update the rating for the current movie in movieData
+            movieData[currentMovieIndex].rating = rating;
         }
         setCurrentMovieIndex(prevIndex => prevIndex + 1);
         setWatched(false);

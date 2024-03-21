@@ -1,15 +1,15 @@
 import React from "react";
 import { Typography, Container } from "@mui/material";
 import { Card, CardActionArea, CardContent, CardMedia } from "@mui/material";
-import { movieData } from "../constants/data";
+import { movieData } from "../constants/data"; // Assuming you have movieData.js
 import Rating from '@mui/material/Rating';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styling/MainPage.css";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function MainPage() {
-    const [value,setValue] = React.useState(2);
     const settings = {
         dots: true,
         infinite: true,
@@ -28,8 +28,8 @@ export default function MainPage() {
                     {movieData.map((movie) => (
                         <div key={movie.id} className="MovieCard">
                             <Card className="MovieCard-Container">
-                                <CardActionArea>
-                                    <CardMedia
+                                <CardActionArea component={RouterLink} to={`/moviepage/${movie.id}`}>
+                                <CardMedia
                                         component="img"
                                         image={movie.imageUrl}
                                         alt={movie.title}
@@ -51,16 +51,13 @@ export default function MainPage() {
                                         >
                                             Genre: {movie.genre}
                                         </Typography>
-                                        <Rating
-                                            name="simple-controlled"
-                                            value={value}
-                                            onChange={(event, newValue) => {
-                                                setValue(newValue);
-                                            }}
-
-                                        />
                                     </CardContent>
                                 </CardActionArea>
+                                <Rating
+                                    name="simple-controlled"
+                                    value={movie.rating || 0}
+                                    readOnly
+                                />
                             </Card>
                         </div>
                     ))}
