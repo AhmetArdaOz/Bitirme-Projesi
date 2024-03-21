@@ -2,7 +2,7 @@ import React from 'react';
 import { movieData } from '../constants/data';
 import '../styling/MoviePage.css';
 import { useParams } from "react-router-dom";
-import Rating from '@mui/material/Rating'; 
+import Rating from '@mui/material/Rating';
 
 const MoviePage = () => {
     const { id } = useParams();

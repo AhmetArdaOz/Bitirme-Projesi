@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link as RouterLink, useNavigate} from "react-router-dom";
 import {
         AppBar,
         Toolbar,
@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import "../styling/AppBar.css"
+import { Link } from "react-router-dom";
 
 export default function MainBar(){
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -39,9 +40,11 @@ export default function MainBar(){
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Project_Bitirme
-                    </Typography>
+                    <Link to="/home" style={{ textDecoration: "none", color: "inherit", display: 'flex', alignItems: 'center' }}>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                            Project_Bitirme
+                        </Typography>
+                    </Link>
                 </Toolbar>
             </AppBar>
             <Drawer className="Drawer" anchor="left" open={drawerOpen} onClose={toggleDrawer}>

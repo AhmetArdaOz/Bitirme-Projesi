@@ -1,5 +1,12 @@
 .Bar {
-    text-align: center;
+
+}
+
+.Bar a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
 }
 
 .AppBar {
@@ -13,10 +20,11 @@
 .AppBar-Toolbar {
     display: flex;
     justify-content: space-between;
+    max-width: 1000px;
 }
 
 .Drawer {
-    width: 240px; /* Adjust the width as needed */
+    width: 240px;
 }
 
 .Drawer-List {
