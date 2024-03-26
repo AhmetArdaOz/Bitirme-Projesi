@@ -19,6 +19,7 @@ import SignUp from "./components/SignUp";
 import SuggestionPage from "./pages/SuggestionPage";
 import WelcomePage from "./pages/WelcomePage";
 import MoviePage from "./pages/MoviePage";
+import AdminPage from "./pages/AdminPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,7 +34,8 @@ const router = createBrowserRouter(
         <Route path="series" element={<Series />} />
         <Route path="new&popular" element={<NewAndPopular />} />
         <Route path="mylist" element={<MyList/>}/>
-          <Route path="/moviepage/:id" element={<MoviePage />} />
+        <Route path="/moviepage/:id" element={<MoviePage />} />
+        <Route path="/admin" element={<AdminPage/>}/>
       </Route>
 
     </>
