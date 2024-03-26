@@ -10,10 +10,9 @@ import {
 
 import "./styling/App.css";
 import Movies from "./pages/Movies";
-import Series from "./pages/Series";
-import NewAndPopular from "./pages/NewAndPopular";
+import Support from "./pages/Support";
+import About from "./pages/About";
 import RootLayout from "./layout/RootLayout";
-import MyList from "./pages/MyList";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import SuggestionPage from "./pages/SuggestionPage";
@@ -31,9 +30,8 @@ const router = createBrowserRouter(
         <Route path="suggestion" element={<SuggestionPage/>}/>
         <Route path="home" element={<MainPage />} />
         <Route path="movies" element={<Movies />} />
-        <Route path="series" element={<Series />} />
-        <Route path="new&popular" element={<NewAndPopular />} />
-        <Route path="mylist" element={<MyList/>}/>
+        <Route path="support" element={<Support />} />
+        <Route path="about" element={<About />} />
         <Route path="/moviepage/:id" element={<MoviePage />} />
         <Route path="/admin" element={<AdminPage/>}/>
       </Route>
