@@ -2,7 +2,7 @@ import React from "react";
 import { Tabs, Tab, Box } from "@mui/material";
 import UserManagement from "../components/UserManagement";
 import MovieManagement from "../components/MovieManagement";
-import FeedbackManagement from "../components/FeedBackManagement";
+import FeedbackManagement from "../components/FeedbackManagement";
 import NotDefinedManagement from "../components/NotDefinedManagement";
 
 export default function AdminPage() {
