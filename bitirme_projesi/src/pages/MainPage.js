@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Container } from "@mui/material";
 import { Card, CardActionArea, CardContent, CardMedia } from "@mui/material";
-import { movieData } from "../constants/data"; // Assuming you have movieData.js
+import { movieData } from "../constants/data";
 import Rating from '@mui/material/Rating';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
