@@ -36,6 +36,17 @@
     margin-bottom: 10px;
 }
 
+.director{
+    font-size: 25px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.cast{
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 .genre {
     font-size: 16px;
     margin-bottom: 5px;

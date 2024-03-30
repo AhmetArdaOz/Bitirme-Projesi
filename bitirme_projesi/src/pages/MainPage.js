@@ -45,6 +45,13 @@ export default function MainPage() {
                                             {movie.title}
                                         </Typography>
                                         <Typography
+                                            gutterBottom
+                                            component="div"
+                                            className="MovieCard-Title"
+                                        >
+                                            Director: {movie.director}
+                                        </Typography>
+                                        <Typography
                                             variant="body2"
                                             color="textSecondary"
                                             className="MovieCard-Genre"

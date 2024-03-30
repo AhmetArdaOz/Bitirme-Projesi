@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { Link as RouterLink } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
@@ -13,11 +13,26 @@ import { movieData } from '../constants/data'; // Assuming you have movieData.js
 import '../styling/SuggestionPage.css';
 import { Container } from "@mui/material";
 
-export default function SuggestionPage() {
+function SuggestionPage() {
     const [open, setOpen] = useState(false);
+    const [movies, setMovies] = useState([]);
     const [currentMovieIndex, setCurrentMovieIndex] = useState(0);
     const [watched, setWatched] = useState(false);
     const [rating, setRating] = useState(0);
+
+    useEffect(() => {
+        const shuffledMovies = shuffleArray(movieData);
+        const selectedMovies = shuffledMovies.slice(0, 10);
+        setMovies(selectedMovies);
+    }, []);
+
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
 
     const handleOpen = () => {
         setOpen(true);
@@ -28,11 +43,12 @@ export default function SuggestionPage() {
     };
 
     const handleRateMovie = () => {
+        const updatedMovies = [...movies];
         if (watched) {
-            // Update the rating for the current movie in movieData
-            movieData[currentMovieIndex].rating = rating;
+            updatedMovies[currentMovieIndex].rating = rating;
         }
         setCurrentMovieIndex(prevIndex => prevIndex + 1);
+        setMovies(updatedMovies);
         setWatched(false);
         setRating(0);
     };
@@ -45,7 +61,7 @@ export default function SuggestionPage() {
         setRating(newValue);
     };
 
-    const currentMovie = movieData[currentMovieIndex];
+    const currentMovie = movies[currentMovieIndex];
 
     if (!currentMovie) {
         return (
@@ -88,6 +104,9 @@ export default function SuggestionPage() {
                     <DialogTitle className="dialogTitle">{currentMovie.title}</DialogTitle>
                     <DialogContent className="dialogBody">
                         <Typography variant="body1">
+                            Director: {currentMovie.director}
+                        </Typography>
+                        <Typography variant="body1">
                             Genre: {currentMovie.genre}
                         </Typography>
                         <img src={currentMovie.imageUrl} alt={currentMovie.title} className="movie-image"/>
@@ -111,11 +130,12 @@ export default function SuggestionPage() {
                     </DialogContent>
                     <DialogActions className="dialogNavbar">
                         <Button onClick={handleClose} sx={{color:'#e50914'}}>Close</Button>
-                        <Button onClick={handleRateMovie}  sx={{color:'#e50914'}} disabled={!watched}>Next</Button>
+                        <Button onClick={handleRateMovie}  sx={{color:'#e50914'}} >Next</Button>
                     </DialogActions>
                 </Dialog>
             </div>
         </div>
-
     );
 }
+
+export default SuggestionPage;

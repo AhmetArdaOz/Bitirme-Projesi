@@ -31,6 +31,8 @@ const MoviePage = () => {
             </div>
             <div className="info-container">
                 <h2 className="title">{movie.title}</h2>
+                <p className="director">Director: {movie.director}</p>
+                <p className="cast">Cast:{movie.cast}</p>
                 <p className="genre">Genre: {movie.genre}</p>
                 <p className="explanation">{movie.explanation}</p>
 
