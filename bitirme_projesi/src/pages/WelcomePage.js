@@ -17,6 +17,7 @@ export default function WelcomePage() {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : null);
   };
+
   useEffect(() => {
     const enhance = () => {
       const element = document.getElementById("channel-link");
@@ -67,7 +68,7 @@ export default function WelcomePage() {
           Unlimited movies, TV shows, and more. Watch anywhere. Cancel anytime.
         </Typography>
         <Grid className="signInButtonGrid" container spacing={2} sx={{ mt: 3 }}>
-          <Grid item xs={12} md={6}>
+          <Grid classitem xs={12} md={6}>
             <Button
               className="signInButton"
               variant="contained"
