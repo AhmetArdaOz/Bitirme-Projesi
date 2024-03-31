@@ -111,6 +111,19 @@ export default function WelcomePage() {
               </div>
             </div>
       
+
+          <div class="screen">  
+          <div class="screen-image"></div>  
+          <div class="screen-overlay"></div>  
+          <div class="screen-content">
+            <div class="screen-user">
+              <span class="name">BİTİRME</span>
+              <a class="link" href="" target="_blank">bitirme projesi</a>
+            </div>
+          </div>
+        </div>
+
+
       <Typography className="accordionHeader" variant="h2" component="h2" gutterBottom>
           Accordion Section
       </Typography>
