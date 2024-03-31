@@ -1,5 +1,5 @@
 import React from "react";
-import "../styling/MOvies.css"
+import "../styling/Movies.css"
 
 export default function Movies() {
   return (

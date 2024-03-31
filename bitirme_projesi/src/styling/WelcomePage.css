@@ -1,4 +1,10 @@
-.SignInButton{
-    align-items: center;
-    background-color: #e50914;
-}
+    /* .css-nrbdb5-MuiGrid-root{
+        justify-content: center;
+    } */
+
+    .signInButtonGrid{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
