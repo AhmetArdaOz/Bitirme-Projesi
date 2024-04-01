@@ -241,6 +241,18 @@ export const movieData =[
         trailerUrl:"https://www.youtube.com/embed/VyHV0BRtdxo?si=QVmKe-Rw9YgWEj77",
         explanation:"An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world."
     },
+    {
+        id:21,
+        title:"Harry Potter and the Chamber of Secrets",
+        genre:"Adventure",
+        director:"Chris Columbus",
+        cast:"Daniel Radcliffe,Rupert Grint,Emma Watson",
+        rating:3.5,
+        year:2002,
+        imageUrl:"https://m.media-amazon.com/images/M/MV5BMjE0YjUzNDUtMjc5OS00MTU3LTgxMmUtODhkOThkMzdjNWI4XkEyXkFqcGdeQXVyMTA3MzQ4MTc0._V1_.jpg",
+        trailerUrl:"https://www.youtube.com/embed/s4Fh2WQ2Xbk?si=F6fjuQWP2Rx-_I5l",
+        explanation:"An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world."
+    },
 
 
 
