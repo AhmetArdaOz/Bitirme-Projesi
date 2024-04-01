@@ -6,14 +6,15 @@ import {
     CardActionArea,
     CardMedia,
     List,
-    ListItem,
     ListItemText,
     ListItemButton,
     Collapse,
-    CardContent
+    CardContent,
+    IconButton
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import ClearIcon from '@mui/icons-material/Clear';
 import { movieData } from "../constants/data";
 import "../styling/Movies.css";
 import {Link as RouterLink} from "react-router-dom";
@@ -21,7 +22,11 @@ import Rating from "@mui/material/Rating";
 
 export default function Movies() {
     const [open, setOpen] = React.useState(false);
-    const [filter, setFilter] = React.useState("");
+    const [filter, setFilter] = React.useState({
+        genre: "",
+        rating: 0,
+        year: 0
+    });
     const [genres, setGenres] = React.useState([]);
 
     React.useEffect(() => {
@@ -33,15 +38,28 @@ export default function Movies() {
         setOpen(!open);
     };
 
-    const changeFilter = (genre) => {
-        setFilter(genre);
-        setOpen(false);
+    const changeFilter = (key, value) => {
+        setFilter({
+            ...filter,
+            [key]: value
+        });
+        if (key === "rating") {
+            setOpen(false); // Close the genre filter when rating is selected
+        }
+    };
+
+    const clearFilters = () => {
+        setFilter({
+            genre: "",
+            rating: 0,
+            year: 0
+        });
     };
 
     return (
         <Box className="container">
             <Box className="sidebar">
-                <Typography variant="h6">Find Movies You Like:</Typography>
+                <Typography variant="h6" className="title">Find Movies You Like:</Typography>
                 <List>
                     <ListItemButton onClick={handleClick}>
                         <ListItemText>GENRE</ListItemText>
@@ -50,17 +68,41 @@ export default function Movies() {
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                             {genres.map((genre, index) => (
-                                <ListItemButton key={index} onClick={() => changeFilter(genre)}>
+                                <ListItemButton key={index} onClick={() => changeFilter("genre", genre)}>
                                     <ListItemText>{genre}</ListItemText>
                                 </ListItemButton>
                             ))}
                         </List>
                     </Collapse>
                 </List>
+                <Typography variant="h6">Rating:</Typography>
+                <Rating
+                    name="rating-filter"
+                    value={filter.rating}
+                    onChange={(event, newValue) => changeFilter("rating", newValue)}
+                    precision={0.5}
+                />
+                <Typography variant="h6" className="title">Filter by Year:</Typography>
+                <input
+                    type="number"
+                    value={filter.year}
+                    onChange={(event) => changeFilter("year", parseInt(event.target.value))}
+                    className="year-filter"
+                />
+                <Box sx={{display:"flex",flexDirection:"row",marginTop:"5px"}}>
+                    <IconButton onClick={clearFilters} color="inherit">
+                    <ClearIcon />
+                    <Typography variant="body1" className="clear-all-text" >Clear All</Typography>
+                    </IconButton>
+                </Box>
             </Box>
             <Box className="movieContainer">
-                {movieData.filter((movie) => filter === "" || movie.genre.includes(filter)).map((movie, index) => (
-                    <div key={index} className="movieCardWrapper">
+                {movieData.filter((movie) => (
+                    (filter.genre === "" || movie.genre.includes(filter.genre)) &&
+                    (filter.rating === 0 || movie.rating === filter.rating) &&
+                    (filter.year === 0 || movie.year === filter.year)
+                )).map((movie, index) => (
+                    <Box key={index} className="movieCardWrapper">
                         <Card className="movieCard">
                             <CardActionArea component={RouterLink} to={`/moviepage/${movie.id}`}>
                                 <CardMedia
@@ -94,13 +136,16 @@ export default function Movies() {
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                            <Rating
-                                name="simple-controlled"
-                                value={movie.rating || 0}
-                                readOnly
-                            />
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className="rating">
+                                <Rating
+                                    name="simple-controlled"
+                                    value={movie.rating || 0}
+                                    precision={0.5}
+                                    readOnly
+                                />
+                            </Box>
                         </Card>
-                    </div>
+                    </Box>
                 ))}
             </Box>
         </Box>

@@ -49,9 +49,21 @@ body {
     transform: scale(1.05);
 }
 
+.year-filter {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    outline: none;
+}
+
+
 
 .MovieCard-Container{
-    height: 510px;
+    height: 610px;
 }
 
 .MovieCard-Image {
