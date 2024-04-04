@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 import "./styling/App.css";
-import Movies from "./pages/MOvies";
+import Movies from "./pages/Movies";
 import Series from "./pages/Series";
 import NewAndPopular from "./pages/NewAndPopular";
 import RootLayout from "./layout/RootLayout";
