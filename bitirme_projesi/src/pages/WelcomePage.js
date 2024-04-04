@@ -10,6 +10,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import MainBar from "../components/AppBar.js";
 
 export default function WelcomePage() {
   const [expanded, setExpanded] = useState(null);
@@ -61,6 +62,7 @@ export default function WelcomePage() {
   return (
     <Container className="welcomePageComponent" maxWidth="sm">
       <Container className="mainContent">
+      <MainBar></MainBar>
       <Box className="welcomeMessage" sx={{ my: 4 }}>
         <Typography variant="h1" component="h1" gutterBottom>
           Welcome to Bitirme
