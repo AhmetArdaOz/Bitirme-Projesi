@@ -85,6 +85,26 @@ export default function WelcomePage() {
           </Grid>
         </Grid>
       </Box>
+        <div className="carouselContainer">
+              <h1 className="carouselHeader">3d  gallery</h1>
+          <div className="container">
+            <div id="carousel">
+              <figure></figure>
+              <figure></figure>
+              <figure></figure>
+              <figure></figure>
+              <figure></figure>
+              <figure></figure>
+              <figure></figure>
+              <figure></figure>
+              <figure></figure>
+            </div>
+          </div>
+          </div>
+
+
+
+          
               <div id="text">
               <div className="line">
                 <p className="word">Allow </p>
