@@ -60,6 +60,7 @@ export default function WelcomePage() {
   const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
   return (
     <Container className="welcomePageComponent" maxWidth="sm">
+      <Container className="mainContent">
       <Box className="welcomeMessage" sx={{ my: 4 }}>
         <Typography variant="h1" component="h1" gutterBottom>
           Welcome to Bitirme
@@ -208,6 +209,7 @@ export default function WelcomePage() {
           </AccordionDetails>
         </Accordion>
       </Grid>
+      </Container>
     </Container>
   );
 }

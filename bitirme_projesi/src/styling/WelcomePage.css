@@ -25,6 +25,16 @@
 
   
       
+    .welcomePageComponent {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+
+    
       @keyframes float {
         from, to {
           transform: translateY(-0%);
