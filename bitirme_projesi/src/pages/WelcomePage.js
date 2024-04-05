@@ -10,7 +10,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import MainBar from "../components/AppBar.js";
+
 
 export default function WelcomePage() {
   const [expanded, setExpanded] = useState(null);
@@ -61,7 +61,6 @@ export default function WelcomePage() {
   const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
   return (
     <Container className="welcomePageComponent" maxWidth="sm">
-      <MainBar></MainBar>
       <Container className="mainContent">
       
       <Box className="welcomeMessage" sx={{ my: 4 }}>
