@@ -44,7 +44,7 @@ export default function Movies() {
             [key]: value
         });
         if (key === "rating") {
-            setOpen(false); // Close the genre filter when rating is selected
+            setOpen(false);
         }
     };
 
