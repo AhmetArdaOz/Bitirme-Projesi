@@ -5,12 +5,13 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import "../styling/WelcomePage.css";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import MainBar from "../components/AppBar.js";
+import NavBar from "../components/NavBar.js";
+import "../styling/WelcomePage.css";
+import Footer from "../components/Footer.js";
 
 export default function WelcomePage() {
   const [expanded, setExpanded] = useState(null);
@@ -19,133 +20,33 @@ export default function WelcomePage() {
     setExpanded(isExpanded ? panel : null);
   };
 
-  useEffect(() => {
-    const enhance = () => {
-      const element = document.getElementById("channel-link");
-      if (element) {
-        const text = element.innerText.split("");
 
-        element.innerText = "";
-
-        text.forEach((value, index) => {
-          const outer = document.createElement("span");
-
-          outer.className = "outer";
-
-          const inner = document.createElement("span");
-
-          inner.className = "inner";
-
-          inner.style.animationDelay = `${rand(-5000, 0)}ms`;
-
-          const letter = document.createElement("span");
-
-          letter.className = "letter";
-
-          letter.innerText = value;
-
-          letter.style.animationDelay = `${index * 1000}ms`;
-
-          inner.appendChild(letter);
-
-          outer.appendChild(inner);
-
-          element.appendChild(outer);
-        });
-      }
-    };
-
-    enhance();
-  }, []);
-
-  const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
   return (
-    <Container className="welcomePageComponent" maxWidth="sm">
-      <MainBar></MainBar>
-      <Container className="mainContent">
-      
-      <Box className="welcomeMessage" sx={{ my: 4 }}>
-        <Typography variant="h1" component="h1" gutterBottom>
-          Welcome to Bitirme
-        </Typography>
-        <Typography variant="h5" component="p" gutterBottom>
-          Unlimited movies, TV shows, and more. Watch anywhere. Cancel anytime.
-        </Typography>
-        <Grid className="signInButtonGrid" container spacing={2} sx={{ mt: 3 }}>
-          <Grid classitem xs={12} md={6}>
-            <Button
-              className="signInButton"
-              variant="contained"
-              component={RouterLink}
-              to="/signin"
-              fullWidth
-            >
-              Sign In
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-        <div className="carouselContainer">
-              <h1 className="carouselHeader">3d  gallery</h1>
-          <div className="container">
-            <div id="carousel">
-              <figure></figure>
-              <figure></figure>
-              <figure></figure>
-              <figure></figure>
-              <figure></figure>
-              <figure></figure>
-              <figure></figure>
-              <figure></figure>
-              <figure></figure>
-            </div>
-          </div>
-          </div>
+    <div id="welcomePageComponent">
+      <NavBar></NavBar>
 
+      <Box id="upperContentBox">
+           <Box id="upperContent">
+              <Typography id="upperContentHeader1">
+                Welcome to Bitirme
+              </Typography>
 
+              <Typography id="upperContentHeader2">
+                Unlimited movies, TV shows, and more. Watch anywhere. Cancel anytime.
+              </Typography>
+            </Box>
+            <Box id="buttonContainer">
+              <Button 
+                  id="signInButton"
+                  variant="contained"
+                  component={RouterLink}
+                  to="/signin"
+                  fullWidth>
+                  Sign In
+              </Button>
+            </Box>
+        </Box>
 
-          
-              <div id="text">
-              <div className="line">
-                <p className="word">Allow </p>
-                <p className="word">us</p>
-              </div>
-
-              <div className="line">
-                <p className="word">to</p>
-
-              </div>
-
-              <div className="line">
-                <p className="word">introduce</p>
-              </div>
-              
-              <div className="line">
-                <a 
-                  id="channel-link" 
-
-                  // aboutus sayfasına yönlendirmesi lazım 
-                  // veya herhangi bir yere ayarlanabilir
-                  href="" 
-                  target="_blank" 
-                  className="word fancy"
-                >
-                  ourselves
-                </a>
-              </div>
-            </div>
-      
-
-          <div class="screen">  
-          <div class="screen-image"></div>  
-          <div class="screen-overlay"></div>  
-          <div class="screen-content">
-            <div class="screen-user">
-              <span class="name">BİTİRME</span>
-              <a class="link" href="" target="_blank">bitirme projesi</a>
-            </div>
-          </div>
-        </div>
 
 
       <Typography className="accordionHeader" variant="h2" component="h2" gutterBottom>
@@ -232,7 +133,8 @@ export default function WelcomePage() {
           </AccordionDetails>
         </Accordion>
       </Grid>
-      </Container>
-    </Container>
+
+      <Footer></Footer>
+    </div>
   );
 }
