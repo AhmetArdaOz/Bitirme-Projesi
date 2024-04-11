@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styling/MainPage.css";
+import List from "../components/list/List"
 
 export default function MainPage() {
     const settings = {
