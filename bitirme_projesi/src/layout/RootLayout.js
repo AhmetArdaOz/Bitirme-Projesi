@@ -6,7 +6,7 @@ export default  function RootLayout(){
     return(
         <div className="root-layout">
         <MainBar/>
-        <Container>
+        <Container maxWidth="false" disableGutters="true">
             <main>
                 <Outlet/>
             </main>
