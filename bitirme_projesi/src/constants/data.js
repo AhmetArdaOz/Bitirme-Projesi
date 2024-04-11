@@ -60,7 +60,4 @@ export const movieData =[
         genre:"Sci-fi,Action",
         imageUrl:"https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg"
     },
-
-
-
 ]
