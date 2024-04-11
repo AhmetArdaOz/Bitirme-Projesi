@@ -1,27 +1,14 @@
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.App {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 20px;
 }
 .title{
     font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: bolder;
     text-align: left;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: rgba(0, 0, 0, 0.89);
-    color: #fff;
-}
-
-.App {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
+  }
 .MainContent {
     padding-top: 80px;
 }

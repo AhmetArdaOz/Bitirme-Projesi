@@ -12,13 +12,13 @@ export default function MainPage() {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: 6,
         slidesToScroll: 1
     };
 
     return (
         <div className="App">
-            <Container className="MainContent">
+            <Container maxWidth="false" className="MainContent">
                 <Typography className="title" variant="h2" component="h2" style={{fontSize:"30px"}}>
                     Featured Movies
                 </Typography>
@@ -56,9 +56,10 @@ export default function MainPage() {
                     ))}
                 </Slider>
             </Container>
-            <Container className="MainContent">
+
+            <Container maxWidth="false" className="MainContent">
                 <Typography className="title" variant="h2" component="h2" style={{fontSize:"30px"}}>
-                    For You
+                    Featured Movies
                 </Typography>
                 <Slider {...settings}>
                     {movieData.map((movie) => (
