@@ -57,10 +57,6 @@ export default function MainPage() {
                     ))}
                 </Slider>
             </Container>
-            <List></List>
-            <List></List>
-            <List></List>
-            <List></List>
         </div>
     );
 }
