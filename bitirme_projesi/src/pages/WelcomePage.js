@@ -25,32 +25,35 @@ export default function WelcomePage() {
     <div id="welcomePageComponent">
       <NavBar></NavBar>
 
-      <Box id="upperContentBox">
-           <Box id="upperContent">
-              <Typography id="upperContentHeader1">
-                Welcome to Bitirme
-              </Typography>
+        
+            <Box id="upperContentBox">
+                <Box id="upperContent">
+                    <Typography id="upperContentHeader1">
+                      Welcome to BİTİRME
+                    </Typography>
 
-              <Typography id="upperContentHeader2">
-                Unlimited movies, TV shows, and more. Watch anywhere. Cancel anytime.
-              </Typography>
-            </Box>
-            <Box id="buttonContainer">
-              <Button 
-                  id="signInButton"
-                  variant="contained"
-                  component={RouterLink}
-                  to="/signin"
-                  fullWidth>
-                  Sign In
-              </Button>
-            </Box>
-        </Box>
+                    <Typography id="upperContentHeader2">
+                      Unlimited movies, TV shows, and more. Watch anywhere. Cancel anytime.
+                    </Typography>
+                  </Box>
+                  <Box id="buttonContainer">
+                    <Button 
+                        color="error"
+                        id="signInButton"
+                        variant="contained"
+                        component={RouterLink}
+                        to="/signin"
+                        fullWidth>
+                        Sign In
+                    </Button>
+                  </Box>
+                  <div class="background"></div>
+              </Box>
+          
 
-
-
-      <Typography className="accordionHeader" variant="h2" component="h2" gutterBottom>
-          Accordion Section
+    <div id="accordion">
+      <Typography id="accordionHeader" variant="h2" component="h2" gutterBottom>
+            Frequently Asked Questions
       </Typography>
       <Grid className="accordionGrid">
         <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -133,7 +136,9 @@ export default function WelcomePage() {
           </AccordionDetails>
         </Accordion>
       </Grid>
+    </div>
 
+      <div id="line"></div>
       <Footer></Footer>
     </div>
   );

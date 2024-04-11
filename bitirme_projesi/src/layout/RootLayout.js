@@ -8,12 +8,11 @@ export default  function RootLayout(){
     return(
         <div className="root-layout">
             {!hideAppbar && <MainBar/>}
-        <Container>
+        <Container maxWidth="false" disableGutters="true">
             <main>
                 <Outlet/>
             </main>
         </Container>
-
         </div>
     )
 }
