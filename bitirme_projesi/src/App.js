@@ -19,23 +19,24 @@ import SuggestionPage from "./pages/SuggestionPage";
 import WelcomePage from "./pages/WelcomePage";
 import MoviePage from "./pages/MoviePage";
 import AdminPage from "./pages/AdminPage";
+import SupportPage from "./pages/SupportPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<RootLayout/>}>
-        <Route index element={<WelcomePage/>}/>
-        <Route path="signin" element={<SignIn/>}/>
-        <Route path="signup" element={<SignUp/>}/>
-        <Route path="suggestion" element={<SuggestionPage/>}/>
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<WelcomePage />} />
+        <Route path="signin" element={<SignIn />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="suggestion" element={<SuggestionPage />} />
         <Route path="home" element={<MainPage />} />
         <Route path="movies" element={<Movies />} />
         <Route path="support" element={<Support />} />
         <Route path="about" element={<About />} />
         <Route path="/moviepage/:id" element={<MoviePage />} />
-        <Route path="/admin" element={<AdminPage/>}/>
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="support" element={<SupportPage />} />
       </Route>
-
     </>
   )
 );

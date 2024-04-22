@@ -1,0 +1,17 @@
+#navBar {
+    text-align: center;
+    margin-bottom: 3.8%;
+}
+
+#AppBar {
+    background-color: #000 !important;
+    border-bottom: 3px solid #e50914;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#AppBar-Toolbar {
+    display: flex;
+    justify-content: space-between;
+}
