@@ -11,6 +11,8 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Container,
+  Box,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -40,7 +42,7 @@ export default function MainBar() {
   };
 
   return (
-    <div className="Bar">
+    <Container className="Bar">
       <AppBar className="AppBar" position="fixed">
         <Toolbar className="AppBar-Toolbar">
           <IconButton
@@ -80,43 +82,45 @@ export default function MainBar() {
           </Menu>
         </Toolbar>
       </AppBar>
-      <Drawer
-        className="Drawer"
-        anchor="left"
-        open={drawerOpen}
-        onClose={toggleDrawer}
-      >
-        <List className="Drawer-List">
-          <ListItem
-            className="Drawer-ListItem"
-            button
-            onClick={() => handleDrawerItemClick("home")}
-          >
-            <ListItemText className="Drawer-ListItemText" primary="Home" />
-          </ListItem>
-          <ListItem
-            className="Drawer-ListItem"
-            button
-            onClick={() => handleDrawerItemClick("movies")}
-          >
-            <ListItemText className="Drawer-ListItemText" primary="Movies" />
-          </ListItem>
-          <ListItem
-            className="Drawer-ListItem"
-            button
-            onClick={() => handleDrawerItemClick("support")}
-          >
-            <ListItemText className="Drawer-ListItemText" primary="Support" />
-          </ListItem>
-          <ListItem
-            className="Drawer-ListItem"
-            button
-            onClick={() => handleDrawerItemClick("about")}
-          >
-            <ListItemText className="Drawer-ListItemText" primary="About" />
-          </ListItem>
-        </List>
-      </Drawer>
-    </div>
+      <Box>
+        <Drawer
+          className="Drawer"
+          anchor="left"
+          open={drawerOpen}
+          onClose={toggleDrawer}
+        >
+          <List className="Drawer-List">
+            <ListItem
+              className="Drawer-ListItem"
+              button
+              onClick={() => handleDrawerItemClick("home")}
+            >
+              <ListItemText className="Drawer-ListItemText" primary="Home" />
+            </ListItem>
+            <ListItem
+              className="Drawer-ListItem"
+              button
+              onClick={() => handleDrawerItemClick("movies")}
+            >
+              <ListItemText className="Drawer-ListItemText" primary="Movies" />
+            </ListItem>
+            <ListItem
+              className="Drawer-ListItem"
+              button
+              onClick={() => handleDrawerItemClick("support")}
+            >
+              <ListItemText className="Drawer-ListItemText" primary="Support" />
+            </ListItem>
+            <ListItem
+              className="Drawer-ListItem"
+              button
+              onClick={() => handleDrawerItemClick("about")}
+            >
+              <ListItemText className="Drawer-ListItemText" primary="About" />
+            </ListItem>
+          </List>
+        </Drawer>
+      </Box>
+    </Container>
   );
 }

@@ -19,16 +19,18 @@
 .AppBar-Toolbar {
   display: flex;
   justify-content: space-between;
-  max-width: 19956px;
 }
 
 .Drawer {
   width: 240px;
 }
 
+.Drawer .MuiPaper-root {
+  background-color: #333;
+}
+
 .Drawer-List {
-  width: 100%;
-  padding: 0;
+  width: 150px;
 }
 
 .Drawer-ListItem {
@@ -37,11 +39,13 @@
 }
 
 .Drawer-ListItem:hover {
-  background-color: #f0f0f0; /* Adjust the hover background color */
+  background-color: #f0f0f0;
 }
 
 .Drawer-ListItemText {
-  margin-left: 16px;
+  display: flex;
+  margin-left: 20px;
+  color: #f0f0f0;
 }
 
 .Container {
@@ -49,5 +53,5 @@
 }
 
 .MainContent {
-  padding-top: 80px; /* Adjust padding-top to make space for the app bar */
+  padding-top: 80px;
 }
