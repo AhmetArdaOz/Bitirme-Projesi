@@ -1,120 +1,142 @@
 .suggestion-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.finalMessage-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.finalMessage-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.dialog-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.89);
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.89);
 }
 
 .dialog-box {
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .dialog-content {
-    padding: 20px;
+  padding: 20px;
 }
 
 .movie-image {
-    max-width: 70%;
-    margin-top: 10px;
-    border-radius: 5px;
+  max-width: 70%;
+  margin-top: 10px;
+  border-radius: 5px;
 }
-
 
 .close-button {
-    color: red;
+  color: red;
 }
-
 
 .suggestion-title {
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-    opacity: 0;
-    animation: fadeInTitle 1s ease-in forwards;
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInTitle 1s ease-in forwards;
 }
 
-
 .button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .suggestion-message {
-    font-size: 20px;
-    margin-bottom: 40px;
-    opacity: 0;
-    animation: fadeInMessage 1s ease-in forwards;
+  font-size: 20px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeInMessage 1s ease-in forwards;
 }
 
 .next-button {
-    color: #e50914;
+  color: #e50914;
 }
 
-.dialogBody{
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-
+.dialogBody {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
 }
 
-.dialogTitle{
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
+.dialogTitle {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
 }
-.dialogNavbar{
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #e50914;
+.dialogNavbar {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #e50914;
 }
 
 @keyframes fadeInTitle {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeInMessage {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.ResultContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.ResultContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .Button:hover {
-    background-color: #e34149 !important;
+  background-color: #e34149 !important;
+}
+
+.watched-content {
+  overflow-y: auto !important; /* Allow vertical scrolling */
+  overflow-x: hidden !important; /* Hide horizontal scrollbar */
+}
+
+.watched-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.watched-content::-webkit-scrollbar-thumb {
+  background-color: #333333;
+  border-radius: 5px;
+}
+
+.watched-content::-webkit-scrollbar-thumb:hover {
+  background-color: #333333;
+}
+
+.watched-content::-webkit-scrollbar-track {
+  background: #333333;
+}
+
+.watched-content::-webkit-scrollbar-track:hover {
+  background: #333333;
 }
