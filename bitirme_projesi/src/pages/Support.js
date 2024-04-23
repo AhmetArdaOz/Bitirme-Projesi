@@ -1,6 +1,13 @@
 import React, { useState } from "react";
-import { Container, Typography, TextField, Button } from "@mui/material";
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  ThemeProvider,
+} from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import theme from "../components/theme/theme";
 
 const ContactUs = () => {
   const [name, setName] = useState("");
@@ -13,132 +20,141 @@ const ContactUs = () => {
   };
 
   return (
-    <Container
-      className="Container-main"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        backgroundColor: "#121212",
-        color: "aliceblue",
-        padding: "20px",
-        maxWidth: "800px",
-        width: "100%",
-        marginTop: "100px",
-      }}
-    >
-      <Typography variant="h4" style={{ marginBottom: "32px" }} align="center">
-        You Have a Problem? Let Us Know!
-      </Typography>
+    <ThemeProvider theme={theme}>
+      <Container
+        className="Container-main"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "20px",
+          maxWidth: "800px",
+          width: "100%",
+          marginTop: "100px",
+        }}
+      >
+        <Typography
+          variant="h4"
+          style={{ marginBottom: "32px" }}
+          align="center"
+        >
+          You Have a Problem? Let Us Know!
+        </Typography>
 
-      {messageSent ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <CheckCircleOutlineIcon
-            style={{ color: "green", fontSize: "48px", marginBottom: "16px" }}
-          />
-          <Typography variant="h5" style={{ marginBottom: "16px" }}>
-            Message Sent Successfully!
-          </Typography>
-          <Typography>
-            Thank you for reaching out. We will get back to you soon.
-          </Typography>
-        </div>
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          <form
-            style={{ width: "70%" }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleMessage();
+        {messageSent ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            <TextField
-              fullWidth
-              label="Your Name"
-              variant="outlined"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              style={{
-                marginBottom: "16px",
-                backgroundColor: "#333",
-                color: "aliceblue",
-              }}
-              InputLabelProps={{
-                style: {
-                  color: "aliceblue",
-                },
-              }}
-              inputProps={{
-                style: {
-                  color: "white",
-                },
-              }}
+            <CheckCircleOutlineIcon
+              style={{ color: "green", fontSize: "48px", marginBottom: "16px" }}
             />
-            <TextField
-              fullWidth
-              label="Your Email"
-              variant="outlined"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{
-                marginBottom: "16px",
-                backgroundColor: "#333",
-                color: "aliceblue",
+            <Typography variant="h5" style={{ marginBottom: "16px" }}>
+              Message Sent Successfully!
+            </Typography>
+            <Typography>
+              Thank you for reaching out. We will get back to you soon.
+            </Typography>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
+            <form
+              style={{ width: "70%" }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleMessage();
               }}
-              InputLabelProps={{
-                style: {
+            >
+              <TextField
+                fullWidth
+                label="Your Name"
+                variant="outlined"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                style={{
+                  marginBottom: "16px",
+                  backgroundColor: "#333",
                   color: "aliceblue",
-                },
-              }}
-              inputProps={{
-                style: {
-                  color: "white",
-                },
-              }}
-            />
-            <TextField
-              fullWidth
-              multiline
-              rows={4}
-              label="Your Message"
-              variant="outlined"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              style={{
-                marginBottom: "16px",
-                backgroundColor: "#333",
-                color: "aliceblue",
-              }}
-              InputLabelProps={{
-                style: {
+                }}
+                InputLabelProps={{
+                  style: {
+                    color: "aliceblue",
+                  },
+                }}
+                inputProps={{
+                  style: {
+                    color: "white",
+                  },
+                }}
+              />
+              <TextField
+                fullWidth
+                label="Your Email"
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{
+                  marginBottom: "16px",
+                  backgroundColor: "#333",
                   color: "aliceblue",
-                },
-              }}
-              inputProps={{
-                style: {
-                  color: "white",
-                },
-              }}
-            />
-            <Button type="submit" fullWidth variant="contained" color="primary">
-              Send Message
-            </Button>
-          </form>
-        </div>
-      )}
-    </Container>
+                }}
+                InputLabelProps={{
+                  style: {
+                    color: "aliceblue",
+                  },
+                }}
+                inputProps={{
+                  style: {
+                    color: "white",
+                  },
+                }}
+              />
+              <TextField
+                fullWidth
+                multiline
+                rows={4}
+                label="Your Message"
+                variant="outlined"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                style={{
+                  marginBottom: "16px",
+                  backgroundColor: "#333",
+                  color: "aliceblue",
+                }}
+                InputLabelProps={{
+                  style: {
+                    color: "aliceblue",
+                  },
+                }}
+                inputProps={{
+                  style: {
+                    color: "white",
+                  },
+                }}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
+                Send Message
+              </Button>
+            </form>
+          </div>
+        )}
+      </Container>
+    </ThemeProvider>
   );
 };
 

@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Box,
   Typography,
@@ -12,6 +11,8 @@ import {
   Collapse,
   CardContent,
   IconButton,
+  Pagination,
+  Container,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -21,8 +22,6 @@ import "../styling/Movies.css";
 import { Link as RouterLink } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 
-import "../styling/Movies.css";
-
 export default function Movies() {
   const [open, setOpen] = React.useState(false);
   const [filter, setFilter] = React.useState({
@@ -31,6 +30,8 @@ export default function Movies() {
     year: 0,
   });
   const [genres, setGenres] = React.useState([]);
+  const [page, setPage] = React.useState(1);
+  const moviesPerPage = 6;
 
   React.useEffect(() => {
     const uniqueGenres = [
@@ -51,6 +52,7 @@ export default function Movies() {
     if (key === "rating") {
       setOpen(false);
     }
+    setPage(1);
   };
 
   const clearFilters = () => {
@@ -59,68 +61,81 @@ export default function Movies() {
       rating: 0,
       year: 0,
     });
+    setPage(1);
+  };
+
+  const filteredMovies = movieData.filter(
+    (movie) =>
+      (filter.genre === "" || movie.genre.includes(filter.genre)) &&
+      (filter.rating === 0 || movie.rating === filter.rating) &&
+      (filter.year === 0 || movie.year === filter.year)
+  );
+
+  const indexOfLastMovie = page * moviesPerPage;
+  const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
+  const currentMovies = filteredMovies.slice(
+    indexOfFirstMovie,
+    indexOfLastMovie
+  );
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
   };
 
   return (
-    <Box className="container">
-      <Box className="sidebar">
-        <Typography variant="h6" className="title">
-          Find Movies You Like:
-        </Typography>
-        <List>
-          <ListItemButton onClick={handleClick}>
-            <ListItemText>GENRE</ListItemText>
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {genres.map((genre, index) => (
-                <ListItemButton
-                  key={index}
-                  onClick={() => changeFilter("genre", genre)}
-                >
-                  <ListItemText>{genre}</ListItemText>
-                </ListItemButton>
-              ))}
-            </List>
-          </Collapse>
-        </List>
-        <Typography variant="h6">Rating:</Typography>
-        <Rating
-          name="rating-filter"
-          value={filter.rating}
-          onChange={(event, newValue) => changeFilter("rating", newValue)}
-          precision={0.5}
-        />
-        <Typography variant="h6" className="title">
-          Filter by Year:
-        </Typography>
-        <input
-          type="number"
-          value={filter.year}
-          onChange={(event) =>
-            changeFilter("year", parseInt(event.target.value))
-          }
-          className="year-filter"
-        />
-        <Box sx={{ display: "flex", flexDirection: "row", marginTop: "5px" }}>
-          <IconButton onClick={clearFilters} color="inherit">
-            <ClearIcon />
-            <Typography variant="body1" className="clear-all-text">
-              Clear All
-            </Typography>
-          </IconButton>
+    <Container className="browseMain">
+      <Box className="container">
+        <Box className="sidebar">
+          <Typography variant="h6" className="title">
+            Find Movies You Like:
+          </Typography>
+          <List>
+            <ListItemButton onClick={handleClick}>
+              <ListItemText>GENRE</ListItemText>
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {genres.map((genre, index) => (
+                  <ListItemButton
+                    key={index}
+                    onClick={() => changeFilter("genre", genre)}
+                  >
+                    <ListItemText>{genre}</ListItemText>
+                  </ListItemButton>
+                ))}
+              </List>
+            </Collapse>
+          </List>
+          <Typography variant="h6">Rating:</Typography>
+          <Rating
+            name="rating-filter"
+            value={filter.rating}
+            onChange={(event, newValue) => changeFilter("rating", newValue)}
+            precision={0.5}
+          />
+          <Typography variant="h6" className="title">
+            Filter by Year:
+          </Typography>
+          <input
+            type="number"
+            value={filter.year}
+            onChange={(event) =>
+              changeFilter("year", parseInt(event.target.value))
+            }
+            className="year-filter"
+          />
+          <Box sx={{ display: "flex", flexDirection: "row", marginTop: "5px" }}>
+            <IconButton onClick={clearFilters} color="inherit">
+              <ClearIcon />
+              <Typography variant="body1" className="clear-all-text">
+                Clear All
+              </Typography>
+            </IconButton>
+          </Box>
         </Box>
-      </Box>
-      <Box className="movieContainer">
-        {movieData
-          .filter(
-            (movie) =>
-              (filter.genre === "" || movie.genre.includes(filter.genre)) &&
-              (filter.rating === 0 || movie.rating === filter.rating) &&
-              (filter.year === 0 || movie.year === filter.year)
-          )
-          .map((movie, index) => (
+        <Box className="movieContainer">
+          {currentMovies.map((movie, index) => (
             <Box key={index} className="movieCardWrapper">
               <Card className="movieCard">
                 <CardActionArea
@@ -176,7 +191,16 @@ export default function Movies() {
               </Card>
             </Box>
           ))}
+        </Box>
       </Box>
-    </Box>
+      <Box className="pagination-container">
+        <Pagination
+          count={Math.ceil(filteredMovies.length / moviesPerPage)}
+          page={page}
+          onChange={handlePageChange}
+          color="standard"
+        />
+      </Box>
+    </Container>
   );
 }
