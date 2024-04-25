@@ -1,8 +1,9 @@
+import { useState, useEffect, useRef } from "react";
 import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ListedItem from "../listitem/ListedItem"
 import "./listed.css"
-import { useRef } from "react"
+
 
 
 
@@ -14,7 +15,10 @@ export default function Listed() {
   const handleClick = (direction) =>{
     let distance = listRef.current.getBoundingClientRect().x-50
     if(direction === "left"){
-      listRef.current.style.transfrom = 
+      listRef.current.style.transform = `translateX(${230 + distance}px)`
+    }
+    if(direction === "right"){
+      listRef.current.style.transform = `translateX(${-230 + distance}px)`
     }
   }
 

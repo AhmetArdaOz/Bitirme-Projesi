@@ -13,7 +13,9 @@
 .list .wrapper .container{
     margin-left: 50px;
     display: flex;
+    margin-top: 10px;
     width: max-content;
+    transform: translateX(0px);
 }
 
 .list .wrapper{
@@ -31,6 +33,7 @@
     margin: auto;
     cursor: pointer;
     opacity: 0.5;
+    z-index: 20;
     
 }
 
@@ -39,11 +42,4 @@
 }
 .wrapper .right{
     right: 0px;
-}
-
-.wrapper .container{
-    margin-left: 50px;
-    display: flex;
-    margin-top: 10px;
-    transform: translateX(0PX);
 }
