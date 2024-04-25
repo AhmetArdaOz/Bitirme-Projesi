@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styling/MainPage.css";
 
-export default function MainPage() {aaa
+export default function MainPage() {
     const settings = {
         dots: true,
         infinite: true,
