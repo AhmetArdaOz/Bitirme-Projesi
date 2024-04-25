@@ -1,0 +1,49 @@
+.list{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.list .listTitle{
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 50px;
+}
+
+.list .wrapper .container{
+    margin-left: 50px;
+    display: flex;
+    width: max-content;
+}
+
+.list .wrapper{
+    position: relative;
+}
+
+.list .wrapper .sliderArrow{
+    width: 50px;
+    height: 100%;
+    background-color: black;
+    color: white;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    cursor: pointer;
+    opacity: 0.5;
+    
+}
+
+.wrapper .left{
+    left: 0;
+}
+.wrapper .right{
+    right: 0px;
+}
+
+.wrapper .container{
+    margin-left: 50px;
+    display: flex;
+    margin-top: 10px;
+    transform: translateX(0PX);
+}
