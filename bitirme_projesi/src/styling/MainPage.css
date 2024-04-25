@@ -40,6 +40,7 @@
 
 .MovieCard-Container{
     height: 400px;
+    
 }
 
 .MovieCard-Image {
@@ -60,4 +61,3 @@
 .MovieCard-Genre {
     font-size: 14px;
 }
-
