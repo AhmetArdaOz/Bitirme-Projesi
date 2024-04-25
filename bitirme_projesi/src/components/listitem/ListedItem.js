@@ -3,7 +3,7 @@ import "./listedItem.css"
 export default function ListedItem() {
   return (
     <div className="listItem">
-      ITEM
+      <img src="welcomePageBg.png"></img>
     </div>
   )
 }
