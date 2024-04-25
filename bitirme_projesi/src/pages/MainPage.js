@@ -1,11 +1,10 @@
 import React from 'react'
+import "../styling/MainPage.css"
 
-function MainPage() {
+export default function MainPage() {
   return (
-    <div>
+    <div className="home">
       
     </div>
   )
 }
-
-export default MainPage
