@@ -1,0 +1,22 @@
+.aipage {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.aipage .AccordionSummary {
+  background-color: #4caf50;
+  color: white;
+  border-radius: 10px 10px 0 0;
+}
+
+.aipage .input-area input[type="text"] {
+  width: calc(100% - 20px);
+  border: none;
+  outline: none;
+  padding: 5px;
+  border-radius: 5px;
+}

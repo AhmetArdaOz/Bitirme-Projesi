@@ -5,6 +5,11 @@ import MovieManagement from "../components/MovieManagement";
 import FeedbackManagement from "../components/FeedbackManagement";
 import NotDefinedManagement from "../components/NotDefinedManagement";
 import theme from "../components/theme/theme";
+import { Accordion,Typography } from '@mui/material';
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import AiPage from '../components/ChatAi';
 
 export default function AdminPage() {
   const [value, setValue] = React.useState(0);
@@ -55,6 +60,21 @@ function TabPanel(props) {
           <div>{children}</div>
         </Box>
       )}
+      <div className="aipage">
+          <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>
+            <AccordionSummary
+              expandIcon={<ArrowDownwardIcon sx={{ color: "white" }} />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+              sx={{ color: "white" }}
+            >
+          <Typography>Talk to Famous Movie Stars</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <AiPage />
+            </AccordionDetails>
+          </Accordion>
+        </div>
     </div>
   );
 }

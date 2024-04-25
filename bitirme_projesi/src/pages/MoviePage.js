@@ -3,6 +3,11 @@ import { movieData } from '../constants/data';
 import '../styling/MoviePage.css';
 import { useParams } from "react-router-dom";
 import Rating from '@mui/material/Rating';
+import { Accordion,Typography } from '@mui/material';
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import AiPage from '../components/ChatAi';
 
 const MoviePage = () => {
     const { id } = useParams();
@@ -18,6 +23,7 @@ const MoviePage = () => {
     console.log("Found Movie:", movie);
 
     return (
+        <>
         <div className="movie-page-container">
             <div className="trailer-container">
                 {/* Embedded YouTube trailer */}
@@ -42,7 +48,25 @@ const MoviePage = () => {
                     readOnly
                 />
             </div>
+
+            <div className="aipage">
+          <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>
+            <AccordionSummary
+              expandIcon={<ArrowDownwardIcon sx={{ color: "white" }} />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+              sx={{ color: "white" }}
+            >
+          <Typography>Talk to Famous Movie Stars</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <AiPage />
+            </AccordionDetails>
+          </Accordion>
         </div>
+            
+        </div>
+        </>
     );
 };
 

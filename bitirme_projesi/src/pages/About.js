@@ -1,7 +1,12 @@
-// AboutPage.js
 
+import { Typography, Container, Accordion } from "@mui/material";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import React from "react";
-import { Container, Typography } from "@mui/material";
+import AiPage from "../components/ChatAi";
+import "../styling/About.css"
+
 
 export default function About() {
   return (
@@ -45,6 +50,21 @@ export default function About() {
         and the power of visual artistry. Lights, camera, action – let's
         discover the wonders of cinema together!
       </Typography>
+      <div className="aipage">
+          <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>
+            <AccordionSummary
+              expandIcon={<ArrowDownwardIcon sx={{ color: "white" }} />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+              sx={{ color: "white" }}
+            >
+          <Typography>Talk to Famous Movie Stars</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <AiPage />
+            </AccordionDetails>
+          </Accordion>
+        </div>
     </Container>
   );
 }

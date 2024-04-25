@@ -10,14 +10,14 @@ export default function AiPage() {
       <body>
         <div className="chatbot">
           <header>
-            <h2>Agent 0</h2>
+            <h2>The Bride</h2>
           </header>
           <ul className="chatbox">
             <li className="chat incoming">
               <div className="face">
                 <FaceOutlinedIcon sx={{ marginTop: "4.5px" }} />
               </div>
-              <p>Hello There I am Agent 0; How can i help you today</p>
+              <p>Hi, I am the Bride. How can i help you today</p>
             </li>
 
             <li className="chat outgoing"></li>

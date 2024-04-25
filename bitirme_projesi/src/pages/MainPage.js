@@ -148,7 +148,7 @@ export default function MainPage() {
               id="panel1-header"
               sx={{ color: "white" }}
             >
-              <Typography>Talk to ChatBot</Typography>
+          <Typography>Talk to Famous Movie Stars</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <AiPage />
