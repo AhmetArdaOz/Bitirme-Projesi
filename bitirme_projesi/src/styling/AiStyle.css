@@ -26,7 +26,8 @@
 .chatbox .chat p {
   color: #fff;
   font-size: 0.95rem;
-  max-width: 75%;
+  max-width: 75%; 
+  white-space: pre-wrap;
   padding: 12px 16px;
   border-radius: 10px 10px 0 10px;
   background: #724ae8;
@@ -85,12 +86,4 @@
 .chatbox .outgoing {
   margin: 20px 0;
   justify-content: flex-end;
-}
-
-.chatbox .chat .p {
-  color: #fff;
-  max-width: 75%;
-  padding: 12px 16px;
-  border-radius: 10px 10px 0 10px;
-  background: #724ae8;
 }

@@ -18,12 +18,13 @@ export default function Aichat() {
 
     let chatContent;
     if (className === "outgoing") {
-      chatContent = `<p>${message}</p>`;
+      chatContent = `<p></p>`;
     } else {
-      chatContent = `<div class="face"> <FaceOutlined sx={{ marginTop: "4.5px" }} /> </div> <p>${message}</p>`;
+      chatContent = `<div class="face"> <FaceOutlined sx={{ marginTop: "4.5px" }} /> </div> <p></p>`;
     }
 
     chatLi.innerHTML = chatContent;
+    chatLi.querySelector("p").textContent=message;
     return chatLi;
   };
 
@@ -47,7 +48,7 @@ export default function Aichat() {
       messageElement.textContent = data.choices[0].message.content;
     }).catch((error) =>
         messageElement.textContent = "Ooops! Something went wrong. Please try again."
-    )
+    ).finally(()=>chatbox.scrollTo(0,chatbox.scrollHeight))
   };
 
   const handleChat = () => {
@@ -56,10 +57,13 @@ export default function Aichat() {
 
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
     chatInput.value = "";
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+
 
     setTimeout(() => {
       const incomingChatLi= createChatLi("Thinking...", "incoming")
       chatbox.appendChild(incomingChatLi);
+      chatbox.scrollTo(0,chatbox.scrollHeight);
       generateResponse(incomingChatLi);
     }, 600);
   };
