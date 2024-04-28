@@ -1,0 +1,18 @@
+.navbar{
+    color:white;
+    font-size: 14px;
+    background-color: black;
+}
+
+.navbar .container{
+padding-left: 50px;
+padding-right: 50px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.navbar .container img{
+    height: 25px;
+    width: 100px;
+}

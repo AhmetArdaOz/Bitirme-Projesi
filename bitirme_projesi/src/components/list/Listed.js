@@ -12,8 +12,6 @@ export default function Listed() {
   const [isMoved, setIsMoved]= useState(false);
   const [slideNumber, setSlideNumber]= useState(0);
 
-
-
   const listRef = useRef()
 
 
