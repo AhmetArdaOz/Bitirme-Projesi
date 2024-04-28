@@ -1,19 +1,40 @@
+import { useState } from "react";
 import "./listedItem.css"
-
-export default function ListedItem() {
+import AddIcon from '@mui/icons-material/Add';
+export default function ListedItem({index}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const trailer = "https://www.youtube.com/embed/cen0rBKLuYE?si=p4V5tlZD9vJ3Kce4"
   return (
-    <div className="listItem">
+    <div className="listItem" 
+    style={{left: isHovered && index * 225 - 50 + index * 2.5}}
+    onMouseEnter={()=>setIsHovered(true)}
+     onMouseLeave={()=>setIsHovered(false)}>
       <img src="https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg">
       </img>
-      <div className="itemInfoTop">
-        <span>1hr 14 minutes</span>
-        <span className="limit">+16</span>
-        <span>1999</span>
-        <div className="desc">Proident excepteur quis do occaecat est reprehenderit 
-        consequat et in fugiat. Eiusmod nostrud eu magna cupidatat dolore quis nostrud. 
-       </div>
-       <div className="genre">Action</div>
-      </div>
+
+
+      {isHovered && (
+        <>
+      <video src={trailer} autoPlay={true} loop></video>
+      <div className="itemInfo">
+        <div className="icons">
+          <AddIcon></AddIcon>
+        </div>
+        <div className="itemInfoTop">
+          <span>1hour 14 minutes</span>
+          <span>1999</span>
+        </div>
+        <div className="desc">Ad sint veniam incididunt ut.
+        Ad sint veniam incididunt ut.
+        Ad sint veniam incididunt ut.
+        Ad sint veniam incididunt ut.
+        Ad sint veniam incididunt ut.
+        Ad sint veniam incididunt ut.
+        </div>
+        <div className="genre">Action</div>
+    
+        </div></>
+      )}
     </div>
   )
 }

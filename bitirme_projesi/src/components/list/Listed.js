@@ -38,18 +38,18 @@ export default function Listed() {
         style={{display: !isMoved && "none"}}
         />
         <div className="container" ref={listRef}>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
-          <ListedItem/>
+          <ListedItem index={0}/>
+          <ListedItem index={1}/>
+          <ListedItem index={2}/>
+          <ListedItem index={3}/>
+          <ListedItem index={4}/>
+          <ListedItem index={5}/>
+          <ListedItem index={6}/>
+          <ListedItem index={7}/>
+          <ListedItem index={8}/>
+          <ListedItem index={9}/>
+          <ListedItem index={10}/>
+          <ListedItem index={11}/>
         </div>
         <ArrowForwardIosIcon className="sliderArrow right" onClick={()=>handleClick("right")}/>
       </div>
