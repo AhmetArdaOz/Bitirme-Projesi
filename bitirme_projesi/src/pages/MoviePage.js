@@ -27,8 +27,6 @@ const MoviePage = () => {
     else return "Universal Acclaim";
   };
 
-  console.log("Found Movie:", movie);
-
   return (
     <>
       <div className="movie-page-container">
