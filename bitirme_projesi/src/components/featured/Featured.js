@@ -5,7 +5,8 @@ import "./featured.css";
 import { Link } from "react-router-dom";
 
 export default function Featured() {
-  const featuredMovie = movieData[0];
+  const randomIndex = Math.floor(Math.random() * movieData.length);
+  const featuredMovie = movieData[randomIndex];
 
   return (
     <div className="featured">

@@ -1,5 +1,5 @@
 import React from "react";
-import AddIcon from "@mui/icons-material/Add";
+
 import "./listeditem.css";
 import { Link } from "react-router-dom";
 
@@ -13,9 +13,6 @@ export default function ListedItem({ movie }) {
       <div className="listItem">
         {movie.imageUrl && <img src={movie.imageUrl} alt={movie.title} />}
         <div className="itemInfo">
-          <div className="icons">
-            <AddIcon />
-          </div>
           <div className="itemInfoTop">
             <span>{movie.runtime}</span>
             <span>

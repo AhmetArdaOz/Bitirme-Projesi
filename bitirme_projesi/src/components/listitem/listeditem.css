@@ -11,6 +11,10 @@
   overflow: hidden;
 }
 
+.itemInfoTop {
+  margin-top: 10px;
+}
+
 .listItem img {
   width: 100%;
   height: 100%;
