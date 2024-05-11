@@ -52,19 +52,13 @@ export default function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await axios.post("/api/v1/register", {
-        name: firstName,
-        surname: lastName,
-        email,
-        password,
-      });
-      console.log("Registered successfully!");
-      // Redirect to login page or handle success accordingly
-    } catch (error) {
-      console.error("Registration failed:", error.response.data.message);
-      // Handle error (e.g., show error message)
-    }
+    const response = await axios.post("http://localhost:3000/api/v1/register", {
+      name: firstName,
+      surname: lastName,
+      email: email,
+      password: password,
+    });
+    console.log("Registered successfully!");
   };
 
   return (
@@ -144,14 +138,6 @@ export default function SignUp() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
             </Grid>

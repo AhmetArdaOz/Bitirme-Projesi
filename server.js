@@ -7,6 +7,10 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const pool = require("./db");
 const queries = require("./src/user/queries");
+const cors = require("cors");
+
+// Enable CORS for all origins
+app.use(cors());
 
 app.use(express.json());
 SECRET_KEY = "262ggsdsh2436342rygryrwyw";
