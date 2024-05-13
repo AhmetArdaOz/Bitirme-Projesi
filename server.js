@@ -9,7 +9,6 @@ const pool = require("./db");
 const queries = require("./src/user/queries");
 const cors = require("cors");
 
-// Enable CORS for all origins
 app.use(cors());
 
 app.use(express.json());
@@ -17,8 +16,13 @@ SECRET_KEY = "262ggsdsh2436342rygryrwyw";
 app.post("/api/v1/register", async (req, res) => {
   try {
     const { name, surname, email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
 
+    const existingUser = await pool.query(queries.getUserByEmail, [email]);
+    if (existingUser.rows.length > 0) {
+      return res.status(400).send("Email already exists");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(queries.addUser, [
       name,
       surname,

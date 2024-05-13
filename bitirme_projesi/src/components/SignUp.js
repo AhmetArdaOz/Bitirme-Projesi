@@ -88,7 +88,7 @@ export default function SignUp() {
     } catch (error) {
       console.error("Registration failed:", error.response.data.message);
       setOpenAlert(true);
-      setMessage("Registration failed: " + error.response.data.message);
+      setMessage("Registration failed: Email already exist");
       setSeverity("error");
     }
   };
@@ -98,7 +98,7 @@ export default function SignUp() {
       <Container
         component="main"
         maxWidth="xs"
-        sx={{ backgroundColor: "white" }}
+        sx={{ backgroundColor: "white", borderRadius: "10px", height: "%100" }}
       >
         <CssBaseline />
         <Box
