@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AlertSnackbar from "./SnackBar";
 
 function Copyright(props) {
   return (
@@ -48,27 +49,35 @@ const theme = createTheme({
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [openAlert, setOpenAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState("error");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (email.trim() === "" || password.trim() === "") {
+      setOpenAlert(true);
+      setMessage("Please enter both email and password.");
+      setSeverity("error");
+      return;
+    }
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/register",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post("http://localhost:3000/api/v1/login", {
+        email,
+        password,
+      });
       const token = response.data.token;
 
       localStorage.setItem("token", token);
-      // Handle token (e.g., store it in localStorage or state)
+
       console.log("Logged in successfully!");
       navigate("/suggestion");
     } catch (error) {
       console.error("Login failed:", error.response.data.message);
-      // Handle error (e.g., show error message)
+      setOpenAlert(true);
+      setMessage("Login Failed: Wrong email or password");
+      setSeverity("error");
     }
   };
 
@@ -146,6 +155,12 @@ export default function SignIn() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
+        <AlertSnackbar
+          openAlert={openAlert}
+          setOpenAlert={setOpenAlert}
+          message={message}
+          severity={severity}
+        />
       </Container>
     </ThemeProvider>
   );

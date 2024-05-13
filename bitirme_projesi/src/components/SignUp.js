@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AlertSnackbar from "./SnackBar";
 
 function Copyright(props) {
   return (
@@ -50,24 +51,48 @@ export default function SignUp() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [openAlert, setOpenAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState("error");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await axios.post("http://localhost:3000/api/v1/register", {
-      name: firstName,
-      surname: lastName,
-      email: email,
-      password: password,
-    });
+    if (
+      firstName.trim() === "" ||
+      lastName.trim() === "" ||
+      email.trim() === "" ||
+      password.trim() === ""
+    ) {
+      setOpenAlert(true);
+      setMessage("Please enter your name, lastname, email and password.");
+      setSeverity("error");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/register",
+        {
+          name: firstName,
+          surname: lastName,
+          email: email,
+          password: password,
+        }
+      );
 
-    const token = response.data.token;
+      const token = response.data.token;
 
-    localStorage.setItem("token", token);
+      localStorage.setItem("token", token);
 
-    console.log("Registered successfully!");
-
-    navigate("/suggestion");
+      console.log("Registered successfully!");
+      navigate("/signin");
+    } catch (error) {
+      console.error("Registration failed:", error.response.data.message);
+      // Set state for Snackbar
+      setOpenAlert(true);
+      setMessage("Registration failed: " + error.response.data.message);
+      setSeverity("error");
+    }
   };
 
   return (
@@ -168,6 +193,12 @@ export default function SignUp() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
+        <AlertSnackbar
+          openAlert={openAlert}
+          setOpenAlert={setOpenAlert}
+          message={message}
+          severity={severity}
+        />
       </Container>
     </ThemeProvider>
   );
