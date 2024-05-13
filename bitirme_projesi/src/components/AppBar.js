@@ -41,6 +41,12 @@ export default function MainBar() {
     setMenuAnchor(null);
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+    console.log("signed out perfectly");
+  };
+
   return (
     <Container className="Bar">
       <AppBar className="AppBar" position="fixed">
@@ -76,9 +82,7 @@ export default function MainBar() {
             <MenuItem onClick={() => handleDrawerItemClick("admin")}>
               Admin
             </MenuItem>
-            <MenuItem onClick={() => handleDrawerItemClick("/")}>
-              Sign out
-            </MenuItem>
+            <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>

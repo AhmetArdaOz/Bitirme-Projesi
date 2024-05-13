@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -19,8 +19,34 @@ function SuggestionPage() {
   const [currentMovieIndex, setCurrentMovieIndex] = useState(0);
   const [watched, setWatched] = useState(false);
   const [rating, setRating] = useState(0);
+  const [userName, setUserName] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/v1/users", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        console.log(response);
+
+        const data = await response.json();
+        if (response.ok) {
+          setUserName(data.userId);
+        } else {
+          navigate("/signin");
+        }
+      } catch (error) {
+        console.log("Error fetching user's name", error);
+      }
+    };
+
+    fetchUserName();
+
     const shuffledMovies = shuffleArray(movieData);
     const selectedMovies = shuffledMovies.slice(0, 10);
     setMovies(selectedMovies);

@@ -15,6 +15,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -47,17 +48,24 @@ const theme = createTheme({
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("/api/v1/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/register",
+        {
+          email,
+          password,
+        }
+      );
       const token = response.data.token;
+
+      localStorage.setItem("token", token);
       // Handle token (e.g., store it in localStorage or state)
       console.log("Logged in successfully!");
+      navigate("/suggestion");
     } catch (error) {
       console.error("Login failed:", error.response.data.message);
       // Handle error (e.g., show error message)
@@ -101,6 +109,8 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -111,6 +121,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -121,8 +133,6 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              component={RouterLink}
-              to="/suggestion"
             >
               Sign In
             </Button>

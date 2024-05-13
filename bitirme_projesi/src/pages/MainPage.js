@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Accordion } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,8 +9,21 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Listed from "../components/list/Listed";
 import Featured from "../components/featured/Featured";
+import { useNavigate } from "react-router-dom";
 
 export default function MainPage() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setAuthenticated(true);
+    } else {
+      navigate("/signin");
+      console.log("Error occured can't go to MainPage");
+    }
+  }, [authenticated]);
   return (
     <>
       <div className="home">
