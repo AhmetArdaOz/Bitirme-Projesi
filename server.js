@@ -17,7 +17,7 @@ app.post("/api/v1/register", async (req, res) => {
   try {
     const { name, surname, email, password } = req.body;
 
-    const existingUser = await pool.query(queries.getUserByEmail, [email]);
+    const existingUser = await pool.query(queries.getUserById, [email]);
     if (existingUser.rows.length > 0) {
       return res.status(400).send("Email already exists");
     }
