@@ -83,12 +83,10 @@ export default function SignUp() {
       const token = response.data.token;
 
       localStorage.setItem("token", token);
-
       console.log("Registered successfully!");
       navigate("/signin");
     } catch (error) {
       console.error("Registration failed:", error.response.data.message);
-      // Set state for Snackbar
       setOpenAlert(true);
       setMessage("Registration failed: " + error.response.data.message);
       setSeverity("error");
