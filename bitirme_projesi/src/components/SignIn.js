@@ -65,9 +65,10 @@ export default function SignIn() {
         email,
         password,
       });
-      const token = response.data.token;
-
+      const { token, name, surname } = response.data;
       localStorage.setItem("token", token);
+      localStorage.setItem("name", name);
+      localStorage.setItem("surname", surname);
 
       console.log("Logged in successfully!");
       navigate("/suggestion");

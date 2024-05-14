@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   AppBar,
@@ -22,7 +22,14 @@ import { Link } from "react-router-dom";
 export default function MainBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [menuAnchor, setMenuAnchor] = useState(null);
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const userName = localStorage.getItem("name");
+
+    setUserName(userName);
+  }, []);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -43,6 +50,8 @@ export default function MainBar() {
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    localStorage.removeItem("surname");
     navigate("/signin");
     console.log("signed out perfectly");
   };
@@ -67,6 +76,7 @@ export default function MainBar() {
             </Typography>
           </Link>
           <div style={{ flexGrow: 1 }} />
+          <Typography>{userName}</Typography>
           <IconButton
             color="inherit"
             aria-label="account"

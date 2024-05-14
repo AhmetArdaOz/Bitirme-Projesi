@@ -24,6 +24,7 @@ export default function MainPage() {
       console.log("Error occured can't go to MainPage");
     }
   }, [authenticated]);
+
   return (
     <>
       <div className="home">

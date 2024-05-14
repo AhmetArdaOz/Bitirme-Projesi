@@ -17,11 +17,6 @@ app.post("/api/v1/register", async (req, res) => {
   try {
     const { name, surname, email, password } = req.body;
 
-    const existingUser = await pool.query(queries.getUserById, [email]);
-    if (existingUser.rows.length > 0) {
-      return res.status(400).send("Email already exists");
-    }
-
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(queries.addUser, [
       name,
@@ -55,7 +50,7 @@ app.post("/api/v1/login", async (req, res) => {
     const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
       expiresIn: "1h",
     });
-    res.json({ token });
+    res.json({ token, name: user.name, surname: user.surname });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server Error");

@@ -45,7 +45,7 @@ const MoviePage = () => {
           <div className="rating-container">
             <h2 className="title">{movie.title}</h2>
 
-            <p className="rating-general-title">METASCORE</p>
+            <p className="rating-general-title">Media Score</p>
             <p className="rating-general">{getRatingPhrase(movie.rating)}</p>
 
             <Rating
@@ -55,7 +55,7 @@ const MoviePage = () => {
               readOnly
             />
 
-            <p className="rating-user-title">USER SCORE</p>
+            <p className="rating-user-title">User Score</p>
             <p className="rating-user">{getRatingPhrase(movie.rating)}</p>
             <Rating
               name="movie-rating-user"

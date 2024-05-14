@@ -19,34 +19,20 @@ function SuggestionPage() {
   const [currentMovieIndex, setCurrentMovieIndex] = useState(0);
   const [watched, setWatched] = useState(false);
   const [rating, setRating] = useState(0);
-  const [userName, setUserName] = useState();
+  const [userName, setUserName] = useState("");
+  const [userLastName, setUserLastName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserName = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/v1/users", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+    const storedName = localStorage.getItem("name");
+    const storedSurname = localStorage.getItem("surname");
 
-        console.log(response);
-
-        const data = await response.json();
-        if (response.ok) {
-          setUserName(data.userId);
-        } else {
-          navigate("/signin");
-        }
-      } catch (error) {
-        console.log("Error fetching user's name", error);
-      }
-    };
-
-    fetchUserName();
-
+    if (storedName && storedSurname) {
+      setUserName(storedName);
+      setUserLastName(storedSurname);
+    } else {
+      console.log("User data not found in localStorage.");
+    }
     const shuffledMovies = shuffleArray(movieData);
     const selectedMovies = shuffledMovies.slice(0, 10);
     setMovies(selectedMovies);
@@ -94,8 +80,8 @@ function SuggestionPage() {
       <div className="finalMessage-container">
         <Container>
           <Typography variant="h4" className="suggestion-title">
-            All set! Now you can press the go home button and enjoy the
-            adventure!
+            All set {userName}! Now you can press the go home button and enjoy
+            the adventure!
           </Typography>
           <div className="button-container">
             <Button
@@ -116,7 +102,7 @@ function SuggestionPage() {
   return (
     <div className="suggestion-container">
       <Typography variant="h4" className="suggestion-title">
-        Welcome!
+        Welcome {userName} {userLastName} !
       </Typography>
       <Typography variant="body1" className="suggestion-message">
         Can you help us personalize your experience? As you rate ten movies, our
