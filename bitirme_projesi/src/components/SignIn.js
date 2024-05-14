@@ -66,6 +66,7 @@ export default function SignIn() {
         password,
       });
       const { token, name, surname } = response.data;
+
       localStorage.setItem("token", token);
       localStorage.setItem("name", name);
       localStorage.setItem("surname", surname);

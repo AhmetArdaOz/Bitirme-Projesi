@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -21,7 +21,6 @@ function SuggestionPage() {
   const [rating, setRating] = useState(0);
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedName = localStorage.getItem("name");
@@ -33,6 +32,7 @@ function SuggestionPage() {
     } else {
       console.log("User data not found in localStorage.");
     }
+
     const shuffledMovies = shuffleArray(movieData);
     const selectedMovies = shuffledMovies.slice(0, 10);
     setMovies(selectedMovies);
