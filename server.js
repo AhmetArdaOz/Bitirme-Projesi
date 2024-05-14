@@ -84,4 +84,4 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/votes", voteRoutes);
 app.use("/api/v1/movies", movieRoutes);
 
-app.listen(port, () => console.log(`app list  ening on port ${port}`));
+app.listen(port, () => console.log(`app listening on port ${port}`));
