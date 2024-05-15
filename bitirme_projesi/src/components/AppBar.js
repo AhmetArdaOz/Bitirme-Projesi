@@ -52,7 +52,7 @@ export default function MainBar() {
     localStorage.removeItem("token");
     localStorage.removeItem("name");
     localStorage.removeItem("surname");
-    navigate("/signin");
+    navigate("/");
     console.log("signed out perfectly");
   };
 
