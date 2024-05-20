@@ -1,22 +1,19 @@
+from flask import Flask, request, jsonify
 import pickle
-import streamlit as st
 import requests
 
+app = Flask(__name__)
 
 def fetch_poster(movie_id):
-    url = "https://api.themoviedb.org/3/movie/{}?api_key=b920124b119c33ce96596988f22abbcf".format(movie_id)
-    data = requests.get(url)
-    data = data.json()
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=b920124b119c33ce96596988f22abbcf"
+    data = requests.get(url).json()
     poster_path = data['poster_path']
     full_path = "http://image.tmdb.org/t/p/w500/" + poster_path
-
     return full_path
-
-
 
 def recommend(movie):
     index = movies[movies['title'] == movie].index[0]
-    distances = sorted(list(enumerate(similarity[index])), reverse=True , key = lambda x: x[1])
+    distances = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
     recommended_movies_name = []
     recommended_movies_poster = []
     for i in distances[1:6]:
@@ -25,33 +22,20 @@ def recommend(movie):
         recommended_movies_name.append(movies.iloc[i[0]].title)
     return recommended_movies_name, recommended_movies_poster
 
-
-st.header("Movies Recommendation System")
+# Load the movies and similarity data
 movies = pickle.load(open('artificats/movie_list.pkl', 'rb'))
 similarity = pickle.load(open('artificats/similarity.pkl', 'rb'))
 
-movie_list = movies['title'].values
-selected_movie = st.selectbox(
-    'Type or select a movie to get a recommendation',
-    movie_list
-)
+@app.route('/recommend', methods=['GET'])
+def recommend_movies():
+    movie = request.args.get('movie')
+    if movie:
+        recommended_movies_name, recommended_movies_poster = recommend(movie)
+        return jsonify({
+            'recommended_movies_name': recommended_movies_name,
+            'recommended_movies_poster': recommended_movies_poster
+        })
+    return jsonify({'error': 'No movie title provided'})
 
-if st.button('Show recommendation'):
-    recommended_movies_name, recommended_movies_poster = recommend(selected_movie)
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        st.text(recommended_movies_name[0])
-        st.image(recommended_movies_poster[0])
-    with col2:
-        st.text(recommended_movies_name[1])
-        st.image(recommended_movies_poster[1])
-    with col3:
-        st.text(recommended_movies_name[2])
-        st.image(recommended_movies_poster[2])
-    with col4:
-        st.text(recommended_movies_name[3])
-        st.image(recommended_movies_poster[3])
-    with col5:
-        st.text(recommended_movies_name[4])
-        st.image(recommended_movies_poster[4])
-        
+if __name__ == '__main__':
+    app.run(debug=True)
