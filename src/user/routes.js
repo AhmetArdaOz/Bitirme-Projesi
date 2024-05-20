@@ -8,5 +8,6 @@ router.get("/:id", controller.getUserById);
 router.post("/", controller.addUser);
 router.delete("/:id", controller.removeUser);
 router.put("/:id", controller.updateUser);
+router.put("/isvisited/:id", controller.updateIsVisited);
 
 module.exports = router;

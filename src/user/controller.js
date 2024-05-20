@@ -85,10 +85,26 @@ const updateUser = (req, res) => {
   });
 };
 
+const updateIsVisited = (req, res) => {
+  const id = parseInt(req.params.id);
+  pool.query(queries.getUserById, [id], (error, results) => {
+    if (error) throw error;
+    const noUserFound = !results.rows.length;
+    if (noUserFound) {
+      res.send("User does not exist.");
+    }
+    pool.query(queries.updateIsVisited, [id], (error, results) => {
+      if (error) throw error;
+      res.status(200).send("User updated successfully");
+    });
+  });
+};
+
 module.exports = {
   getUsers,
   getUserById,
   addUser,
   removeUser,
   updateUser,
+  updateIsVisited,
 };
