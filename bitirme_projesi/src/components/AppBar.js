@@ -89,9 +89,11 @@ export default function MainBar() {
             open={Boolean(menuAnchor)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={() => handleDrawerItemClick("admin")}>
-              Admin
-            </MenuItem>
+            {localStorage.getItem("name") === "ADMIN" && (
+              <MenuItem onClick={() => handleDrawerItemClick("admin")}>
+                Admin
+              </MenuItem>
+            )}
             <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
           </Menu>
         </Toolbar>
