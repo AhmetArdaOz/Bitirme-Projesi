@@ -25,7 +25,7 @@ export default function WelcomePage() {
 
       <Box id="upperContentBox">
         <Box id="upperContent">
-          <Typography id="upperContentHeader1">Welcome to BİTİRME</Typography>
+          <Typography id="upperContentHeader1">Welcome to MovieHub</Typography>
 
           <Typography id="upperContentHeader2">
             Unlimited movies, TV shows, and more. Watch anywhere. Cancel

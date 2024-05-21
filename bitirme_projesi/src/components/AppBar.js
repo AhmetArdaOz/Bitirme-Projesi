@@ -72,7 +72,7 @@ export default function MainBar() {
           </IconButton>
           <Link to="/home" className="AppBar-Link">
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Project_Bitirme
+              MovieHub
             </Typography>
           </Link>
           <div style={{ flexGrow: 1 }} />

@@ -19,6 +19,14 @@ app.post("/api/v1/register", async (req, res) => {
   try {
     const { name, surname, email, password } = req.body;
 
+    const existingUser = await pool.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ message: "Same Email" });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(queries.addUser, [
       name,
