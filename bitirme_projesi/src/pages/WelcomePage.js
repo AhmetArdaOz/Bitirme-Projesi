@@ -25,7 +25,7 @@ export default function WelcomePage() {
 
       <Box id="upperContentBox">
         <Box id="upperContent">
-          <Typography id="upperContentHeader1">Welcome to BİTİRME</Typography>
+          <Typography id="upperContentHeader1">Welcome to MovieHub</Typography>
 
           <Typography id="upperContentHeader2">
             Unlimited movies, TV shows, and more. Watch anywhere. Cancel
@@ -66,13 +66,14 @@ export default function WelcomePage() {
               aria-controls="panel1-content"
               id="panel1-header"
             >
-              <Typography>Accordion 1</Typography>
+              <Typography>What is this website about?</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                Our website is a platform where users can score and comment on
+                movies. Additionally, it features a chatbot for real-time
+                assistance and a recommendation system to help you find movies
+                you'll love.
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -86,13 +87,14 @@ export default function WelcomePage() {
               aria-controls="panel2-content"
               id="panel2-header"
             >
-              <Typography>Accordion 2</Typography>
+              <Typography>How do I score and comment on movies?</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                To score and comment on movies, you need to create an account
+                and log in. Once logged in, navigate to the movie page you want
+                to score or comment on. You will find options to rate the movie
+                and leave your comments.
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -106,13 +108,15 @@ export default function WelcomePage() {
               aria-controls="panel3-content"
               id="panel3-header"
             >
-              <Typography>Accordion 3</Typography>
+              <Typography>What is the chatbot and how can I use it?</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                The chatbot is a feature that provides real-time assistance to
+                users. You can ask the chatbot questions about movies, get
+                recommendations, or seek help with navigating the website. To
+                use the chatbot, simply click on the chat icon located at the
+                bottom right corner of the screen.
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -126,13 +130,15 @@ export default function WelcomePage() {
               aria-controls="panel4-content"
               id="panel4-header"
             >
-              <Typography>Accordion 4</Typography>
+              <Typography>How does the recommendation system work?</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                Our recommendation system analyzes your movie ratings and
+                comments, as well as your viewing history, to suggest movies you
+                might enjoy. The more you interact with the website by rating
+                and commenting on movies, the more accurate the recommendations
+                will become.
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -146,13 +152,14 @@ export default function WelcomePage() {
               aria-controls="panel5-content"
               id="panel5-header"
             >
-              <Typography>Accordion 5</Typography>
+              <Typography>Is my data safe on this website?</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                eget.
+                Yes, your data is safe with us. We use industry-standard
+                encryption and security protocols to protect your personal
+                information. We are committed to safeguarding your privacy and
+                ensuring your data is secure.
               </Typography>
             </AccordionDetails>
           </Accordion>

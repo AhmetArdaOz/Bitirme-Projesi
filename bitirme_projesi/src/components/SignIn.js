@@ -50,6 +50,7 @@ export default function SignIn() {
   const [openAlert, setOpenAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("error");
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -65,14 +66,20 @@ export default function SignIn() {
         email,
         password,
       });
-      const { token, name, surname } = response.data;
+      const { token, name, surname, isVisited } = response.data;
 
       localStorage.setItem("token", token);
       localStorage.setItem("name", name);
       localStorage.setItem("surname", surname);
 
       console.log("Logged in successfully!");
-      navigate("/suggestion");
+      console.log(isVisited);
+
+      if (!isVisited) {
+        navigate("/suggestion");
+      } else {
+        navigate("/home");
+      }
     } catch (error) {
       console.error("Login failed:", error.response.data.message);
       setOpenAlert(true);

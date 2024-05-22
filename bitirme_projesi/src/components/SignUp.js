@@ -85,9 +85,17 @@ export default function SignUp() {
       navigate("/signin");
     } catch (error) {
       console.error("Registration failed:", error.response.data.message);
-      setOpenAlert(true);
-      setMessage("Registration failed: Email already exist");
-      setSeverity("error");
+      if (error.response.data.message === "Same Email") {
+        setOpenAlert(true);
+        setMessage(
+          "Email already exists. Please use a different email address."
+        );
+        setSeverity("error");
+      } else {
+        setOpenAlert(true);
+        setMessage("Registration failed: Unknown Error");
+        setSeverity("error");
+      }
     }
   };
 

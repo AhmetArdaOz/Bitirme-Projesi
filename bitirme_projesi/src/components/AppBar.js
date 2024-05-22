@@ -52,7 +52,7 @@ export default function MainBar() {
     localStorage.removeItem("token");
     localStorage.removeItem("name");
     localStorage.removeItem("surname");
-    navigate("/signin");
+    navigate("/");
     console.log("signed out perfectly");
   };
 
@@ -72,7 +72,7 @@ export default function MainBar() {
           </IconButton>
           <Link to="/home" className="AppBar-Link">
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Project_Bitirme
+              MovieHub
             </Typography>
           </Link>
           <div style={{ flexGrow: 1 }} />
@@ -89,9 +89,11 @@ export default function MainBar() {
             open={Boolean(menuAnchor)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={() => handleDrawerItemClick("admin")}>
-              Admin
-            </MenuItem>
+            {localStorage.getItem("name") === "ADMIN" && (
+              <MenuItem onClick={() => handleDrawerItemClick("admin")}>
+                Admin
+              </MenuItem>
+            )}
             <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
           </Menu>
         </Toolbar>

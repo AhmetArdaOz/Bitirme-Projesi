@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -12,6 +12,8 @@ import Rating from "@mui/material/Rating";
 import { movieData } from "../constants/data";
 import "../styling/SuggestionPage.css";
 import { Container } from "@mui/material";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
 function SuggestionPage() {
   const [open, setOpen] = useState(false);
@@ -21,6 +23,7 @@ function SuggestionPage() {
   const [rating, setRating] = useState(0);
   const [userName, setUserName] = useState("");
   const [userLastName, setUserLastName] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedName = localStorage.getItem("name");
@@ -54,7 +57,7 @@ function SuggestionPage() {
     setOpen(false);
   };
 
-  const handleRateMovie = () => {
+  const handleRateMovie = async () => {
     const updatedMovies = [...movies];
     if (watched) {
       updatedMovies[currentMovieIndex].rating = rating;
@@ -63,6 +66,27 @@ function SuggestionPage() {
     setMovies(updatedMovies);
     setWatched(false);
     setRating(0);
+
+    if (!updatedMovies[currentMovieIndex + 1]) {
+      const token = localStorage.getItem("token");
+      const decodedToken = jwtDecode(token); // Decode the JWT to get userId
+      const userId = decodedToken.userId;
+
+      try {
+        await axios.put(
+          `http://localhost:3000/api/v1/users/isvisited/${userId}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        navigate("/home");
+      } catch (error) {
+        console.error("Failed to succes: ", error.message);
+      }
+    }
   };
 
   const handleWatchedChange = (event) => {
@@ -79,10 +103,6 @@ function SuggestionPage() {
     return (
       <div className="finalMessage-container">
         <Container>
-          <Typography variant="h4" className="suggestion-title">
-            All set {userName}! Now you can press the go home button and enjoy
-            the adventure!
-          </Typography>
           <div className="button-container">
             <Button
               sx={{ backgroundColor: "#e50914", marginTop: "10px" }}
