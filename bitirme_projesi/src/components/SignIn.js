@@ -15,7 +15,6 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AlertSnackbar from "./SnackBar";
-import { jwtDecode } from "jwt-decode";
 
 function Copyright(props) {
   return (
