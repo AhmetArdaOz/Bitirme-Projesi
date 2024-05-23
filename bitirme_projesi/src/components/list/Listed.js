@@ -1,12 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { movieData } from "../../constants/data";
 import ListedItem from "../listitem/ListedItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./listed.css";
+import axios from "axios";
 
 export default function Listed() {
+  const [movieData, setMovieData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const API_KEY = "b920124b119c33ce96596988f22abbcf";
+  const MOVIE_COUNT = 5000;
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  const fetchMovies = () => {
+    let movies = [];
+    const totalPages = Math.ceil(MOVIE_COUNT / 50);
+
+    // try {
+    for (let page = 1; page < totalPages; page++) {
+      axios
+        .get(`https://api.themoviedb.org/3/movie/popular`, {
+          params: {
+            api_key: API_KEY,
+            page: page,
+          },
+        })
+        .then((response) => response.data)
+        .then((data) => {
+          if (data) {
+            setMovieData([...movieData, ...data.results]);
+          }
+        });
+    }
+    // console.log(movies);
+    // setMovieData(movies);
+    // } catch (error) {
+    //   console.error("Error fetching:", error);
+    // } finally {
+    //   setLoading(false);
+    // }
+  };
+
   const settings = {
     dots: false,
     infinite: true,
@@ -14,6 +54,10 @@ export default function Listed() {
     slidesToShow: 7,
     slidesToScroll: 1,
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="list">
