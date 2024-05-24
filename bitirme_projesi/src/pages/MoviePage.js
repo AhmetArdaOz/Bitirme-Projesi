@@ -1,6 +1,4 @@
-import React from "react";
-import { movieData } from "../constants/data";
-import "../styling/MoviePage.css";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import { Accordion, Typography } from "@mui/material";
@@ -8,12 +6,65 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import AiPage from "../components/ChatAi";
+import axios from "axios";
+import "../styling/MoviePage.css";
+
+const API_KEY = "b920124b119c33ce96596988f22abbcf";
 
 const MoviePage = () => {
   const [value, setValue] = React.useState(0);
+  const [movie, setMovie] = useState(null);
+  const [genres, setGenres] = useState([]);
   const { id } = useParams();
 
-  const movie = movieData.find((movie) => movie.id === parseInt(id));
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${id}`,
+          {
+            params: {
+              api_key: API_KEY,
+              append_to_response: "credits",
+            },
+          }
+        );
+        console.log("Movie data:", response.data); // Debug log
+        setMovie(response.data);
+      } catch (error) {
+        console.error("Error fetching movie:", error);
+      }
+    };
+
+    const fetchGenres = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/genre/movie/list`,
+          {
+            params: {
+              api_key: API_KEY,
+            },
+          }
+        );
+        console.log("Genres data:", response.data.genres); // Debug log
+        setGenres(response.data.genres);
+      } catch (error) {
+        console.error("Error fetching genres:", error);
+      }
+    };
+
+    fetchMovie();
+    fetchGenres();
+  }, [id]);
+
+  const getGenreNames = (genreIds) => {
+    if (!genreIds || !genres.length) return "";
+    const genreNames = genreIds
+      .map((id) => genres.find((genre) => genre.id === id)?.name)
+      .filter(Boolean);
+    console.log("Genre names for IDs:", genreIds, genreNames); // Debug log
+    return genreNames.join(", ");
+  };
 
   if (!movie) {
     console.log("Movie not found for ID:", id);
@@ -27,39 +78,46 @@ const MoviePage = () => {
     else return "Universal Acclaim";
   };
 
+  const director =
+    movie.credits?.crew?.find((member) => member.job === "Director")?.name ||
+    "N/A";
+  const cast =
+    movie.credits?.cast
+      ?.slice(0, 5)
+      .map((actor) => actor.name)
+      .join(", ") || "N/A";
+
   return (
     <>
       <div className="movie-page-container">
         <div className="movie-page-rating">
-          <div className="trailer-container">
-            {/* picture */}
-            <iframe
-              className="trailer-video"
-              src={movie.trailerUrl}
-              title={movie.title}
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
+          <div className="image-container">
+            <img
+              className="movie-image"
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={movie.title}
+            />
           </div>
-          {/* rating */}
           <div className="rating-container">
             <h2 className="title">{movie.title}</h2>
 
             <p className="rating-general-title">Media Score</p>
-            <p className="rating-general">{getRatingPhrase(movie.rating)}</p>
+            <p className="rating-general">
+              {getRatingPhrase(movie.vote_average)}
+            </p>
 
             <Rating
               name="movie-rating-general"
-              value={movie.rating || 0}
+              value={movie.vote_average / 2 || 0}
               precision={0.5}
               readOnly
             />
 
             <p className="rating-user-title">User Score</p>
-            <p className="rating-user">{getRatingPhrase(movie.rating)}</p>
+            <p className="rating-user">{getRatingPhrase(movie.vote_average)}</p>
             <Rating
               name="movie-rating-user"
-              value={movie.rating || 0}
+              value={movie.vote_average / 2 || 0}
               precision={0.5}
               readOnly
             />
@@ -76,15 +134,14 @@ const MoviePage = () => {
             />
           </div>
         </div>
-        {/* info */}
         <div className="info-container">
-          <p className="director">Director: {movie.director}</p>
-          <p className="cast">Cast:{movie.cast}</p>
-          <p className="genre">Genre: {movie.genre}</p>
-          <p className="explanation">{movie.explanation}</p>
+          <p className="director">Director: {director}</p>
+          <p className="cast">Cast: {cast}</p>
+          <p className="genre">
+            Genre: {getGenreNames(movie.genres.map((genre) => genre.id))}
+          </p>
+          <p className="explanation">Overview: {movie.overview}</p>
         </div>
-
-        {/* Ai chatbot */}
         <div className="aipage">
           <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>
             <AccordionSummary
