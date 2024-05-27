@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { movieData } from "../../constants/data";
 import ListedItem from "../listitem/ListedItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,33 +7,35 @@ import "slick-carousel/slick/slick-theme.css";
 import "./listed.css";
 import axios from "axios";
 
-export default function Listed({ genreId }) {
+export default function RecoList() {
   const [movieData, setMovieData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const API_KEY = "b920124b119c33ce96596988f22abbcf";
+  const MOVIE_COUNT = 50000;
 
   useEffect(() => {
     fetchMovies();
-  }, [genreId]);
+  }, []);
 
-  const fetchMovies = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/discover/movie`,
-        {
+  const fetchMovies = () => {
+    const totalPages = Math.ceil(MOVIE_COUNT / 200);
+
+    for (let page = 1; page < totalPages; page++) {
+      axios
+        .get(`https://api.themoviedb.org/3/movie/popular`, {
           params: {
             api_key: API_KEY,
-            with_genres: genreId,
+            page: page,
           },
-        }
-      );
-      setMovieData(response.data.results);
-    } catch (error) {
-      console.error("Error fetching movies:", error);
+        })
+        .then((response) => response.data)
+        .then((data) => {
+          if (data) {
+            setMovieData([...movieData, ...data.results]);
+          }
+        });
     }
-    setLoading(false);
   };
 
   const settings = {
@@ -54,8 +57,8 @@ export default function Listed({ genreId }) {
         style={{ marginLeft: "25px", marginTop: "10px" }}
       >
         <Slider {...settings}>
-          {movieData.map((movie) => (
-            <ListedItem key={movie.id} movie={movie} />
+          {movieData.map((movie, index) => (
+            <ListedItem key={movie.id} movie={movie} index={index} />
           ))}
         </Slider>
       </div>

@@ -29,7 +29,7 @@ const MoviePage = () => {
             },
           }
         );
-        console.log("Movie data:", response.data); // Debug log
+        console.log("Movie data:", response.data);
         setMovie(response.data);
       } catch (error) {
         console.error("Error fetching movie:", error);
@@ -46,7 +46,7 @@ const MoviePage = () => {
             },
           }
         );
-        console.log("Genres data:", response.data.genres); // Debug log
+        console.log("Genres data:", response.data.genres);
         setGenres(response.data.genres);
       } catch (error) {
         console.error("Error fetching genres:", error);
