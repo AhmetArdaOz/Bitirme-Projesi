@@ -66,11 +66,12 @@ export default function SignIn() {
         email,
         password,
       });
-      const { token, name, surname, isVisited } = response.data;
+      const { token, name, surname, isVisited, userId } = response.data;
 
       localStorage.setItem("token", token);
       localStorage.setItem("name", name);
       localStorage.setItem("surname", surname);
+      localStorage.setItem("userId", userId);
 
       console.log("Logged in successfully!");
       console.log(isVisited);

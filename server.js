@@ -65,6 +65,7 @@ app.post("/api/v1/login", async (req, res) => {
       name: user.name,
       surname: user.surname,
       isVisited: user.isvisited,
+      userId: user.id,
     });
   } catch (error) {
     console.error(error.message);

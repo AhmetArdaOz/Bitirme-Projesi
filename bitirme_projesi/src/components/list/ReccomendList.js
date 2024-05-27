@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { movieData } from "../../constants/data";
 import ListedItem from "../listitem/ListedItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";

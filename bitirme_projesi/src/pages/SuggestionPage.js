@@ -223,6 +223,7 @@ function SuggestionPage() {
                 </Typography>
                 <Rating
                   value={rating}
+                  sx={{ color: "#e50914" }}
                   precision={0.5}
                   onChange={handleRatingChange}
                   max={5}

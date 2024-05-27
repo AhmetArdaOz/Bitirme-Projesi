@@ -79,7 +79,7 @@ export default function Movies() {
             }
           );
           const data = response.data;
-          if (data) {
+          if (data && data.results) {
             movies = [...movies, ...data.results];
           }
         }
@@ -126,8 +126,7 @@ export default function Movies() {
     (movie) =>
       (filter.genre === "" ||
         movie.genre_ids.includes(parseInt(filter.genre))) &&
-      (filter.rating === 0 ||
-        Math.round(movie.vote_average / 2) >= filter.rating) &&
+      (filter.rating === 0 || movie.vote_average >= filter.rating * 2) && // Convert filter rating to 10-point scale
       (filter.year === 0 ||
         new Date(movie.release_date).getFullYear() === filter.year)
   );
@@ -172,6 +171,7 @@ export default function Movies() {
             <Typography variant="h6">Rating:</Typography>
             <Rating
               name="rating-filter"
+              sx={{ color: "#e50914" }}
               value={filter.rating}
               onChange={(event, newValue) => changeFilter("rating", newValue)}
               precision={0.5}
@@ -246,9 +246,12 @@ export default function Movies() {
                     className="rating"
                   >
                     <Rating
+                      sx={{ color: "#e50914" }}
                       name="simple-controlled"
-                      value={movie.vote_average / 2 || 0}
+                      value={movie.vote_average}
+                      max={10}
                       precision={0.5}
+                      size="small"
                       readOnly
                     />
                   </Box>

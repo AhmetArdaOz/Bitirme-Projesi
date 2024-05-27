@@ -12,10 +12,14 @@ import "../styling/MoviePage.css";
 const API_KEY = "b920124b119c33ce96596988f22abbcf";
 
 const MoviePage = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
   const [movie, setMovie] = useState(null);
   const [genres, setGenres] = useState([]);
+  const [averageUserScore, setAverageUserScore] = useState(0);
   const { id } = useParams();
+
+  // Retrieve the user ID from localStorage
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -53,8 +57,27 @@ const MoviePage = () => {
       }
     };
 
+    const fetchVotes = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/v1/votes");
+        const votes = response.data.filter(
+          (vote) => vote.movie_id === parseInt(id)
+        );
+        if (votes.length > 0) {
+          const average =
+            votes.reduce((sum, vote) => sum + vote.vote, 0) / votes.length;
+          setAverageUserScore(average);
+        } else {
+          setAverageUserScore(0);
+        }
+      } catch (error) {
+        console.error("Error fetching votes:", error);
+      }
+    };
+
     fetchMovie();
     fetchGenres();
+    fetchVotes();
   }, [id]);
 
   const getGenreNames = (genreIds) => {
@@ -62,8 +85,37 @@ const MoviePage = () => {
     const genreNames = genreIds
       .map((id) => genres.find((genre) => genre.id === id)?.name)
       .filter(Boolean);
-    console.log("Genre names for IDs:", genreIds, genreNames); // Debug log
+    console.log("Genre names for IDs:", genreIds, genreNames);
     return genreNames.join(", ");
+  };
+
+  const handleVoteChange = async (event, newValue) => {
+    setValue(newValue);
+    try {
+      await axios.post("http://localhost:3000/api/v1/votes", {
+        votes: [
+          {
+            user_id: userId,
+            movie_id: parseInt(id),
+            vote: newValue,
+          },
+        ],
+      });
+      // Fetch votes again to update the average user score
+      const response = await axios.get("http://localhost:3000/api/v1/votes");
+      const votes = response.data.filter(
+        (vote) => vote.movie_id === parseInt(id)
+      );
+      if (votes.length > 0) {
+        const average =
+          votes.reduce((sum, vote) => sum + vote.vote, 0) / votes.length;
+        setAverageUserScore(average);
+      } else {
+        setAverageUserScore(0);
+      }
+    } catch (error) {
+      console.error("Error submitting vote:", error);
+    }
   };
 
   if (!movie) {
@@ -72,9 +124,9 @@ const MoviePage = () => {
   }
 
   const getRatingPhrase = (rating) => {
-    if (rating <= 1.5) return "Overwhelming dislike";
-    else if (rating <= 2.5) return "Generally unfavorable";
-    else if (rating <= 3.5) return "Generally favorable";
+    if (rating <= 3.5) return "Overwhelming dislike";
+    else if (rating <= 4.5) return "Generally unfavorable";
+    else if (rating <= 8) return "Generally favorable";
     else return "Universal Acclaim";
   };
 
@@ -108,16 +160,20 @@ const MoviePage = () => {
 
             <Rating
               name="movie-rating-general"
-              value={movie.vote_average / 2 || 0}
+              sx={{ color: "#e50914" }}
+              value={movie.vote_average || 0}
               precision={0.5}
+              max={10}
               readOnly
             />
 
             <p className="rating-user-title">User Score</p>
-            <p className="rating-user">{getRatingPhrase(movie.vote_average)}</p>
+            <p className="rating-user">{getRatingPhrase(averageUserScore)}</p>
             <Rating
               name="movie-rating-user"
-              value={movie.vote_average / 2 || 0}
+              sx={{ color: "#e50914" }}
+              value={averageUserScore || 0}
+              max={10}
               precision={0.5}
               readOnly
             />
@@ -126,11 +182,11 @@ const MoviePage = () => {
             <p className="rating-personal">{getRatingPhrase(value)}</p>
             <Rating
               name="movie-rating-personal"
+              sx={{ color: "#e50914" }}
               value={value}
               precision={0.5}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
+              max={10}
+              onChange={handleVoteChange}
             />
           </div>
         </div>
