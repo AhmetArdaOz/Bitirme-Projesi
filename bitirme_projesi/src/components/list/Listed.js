@@ -19,10 +19,8 @@ export default function Listed() {
   }, []);
 
   const fetchMovies = () => {
-    let movies = [];
     const totalPages = Math.ceil(MOVIE_COUNT / 50);
 
-    // try {
     for (let page = 1; page < totalPages; page++) {
       axios
         .get(`https://api.themoviedb.org/3/movie/popular`, {
@@ -38,13 +36,6 @@ export default function Listed() {
           }
         });
     }
-    // console.log(movies);
-    // setMovieData(movies);
-    // } catch (error) {
-    //   console.error("Error fetching:", error);
-    // } finally {
-    //   setLoading(false);
-    // }
   };
 
   const settings = {
@@ -61,7 +52,6 @@ export default function Listed() {
 
   return (
     <div className="list">
-      <span className="listTitle">Continue to watch</span>
       <div
         className="listedItems"
         style={{ marginLeft: "25px", marginTop: "10px" }}

@@ -9,11 +9,12 @@ import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Rating from "@mui/material/Rating";
-import { movieData } from "../constants/data";
 import "../styling/SuggestionPage.css";
 import { Container } from "@mui/material";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+
+const API_KEY = "b920124b119c33ce96596988f22abbcf";
 
 function SuggestionPage() {
   const [open, setOpen] = useState(false);
@@ -36,10 +37,29 @@ function SuggestionPage() {
       console.log("User data not found in localStorage.");
     }
 
-    const shuffledMovies = shuffleArray(movieData);
-    const selectedMovies = shuffledMovies.slice(0, 10);
-    setMovies(selectedMovies);
+    fetchMovies();
   }, []);
+
+  const fetchMovies = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/popular`,
+        {
+          params: {
+            api_key: API_KEY,
+            page: 1,
+          },
+        }
+      );
+
+      const movies = response.data.results;
+      const shuffledMovies = shuffleArray(movies);
+      const selectedMovies = shuffledMovies.slice(0, 10);
+      setMovies(selectedMovies);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    }
+  };
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -67,12 +87,37 @@ function SuggestionPage() {
     setWatched(false);
     setRating(0);
 
+    const votes = updatedMovies.map((movie) => ({
+      movieId: movie.id,
+      rating: movie.rating || 0, // Default to 0 if not rated
+    }));
+
     if (!updatedMovies[currentMovieIndex + 1]) {
       const token = localStorage.getItem("token");
       const decodedToken = jwtDecode(token); // Decode the JWT to get userId
       const userId = decodedToken.userId;
+      const votes = updatedMovies.map((movie) => ({
+        user_id: userId,
+        movie_id: movie.id,
+        vote: movie.rating || 0, // Default to 0 if not rated
+      }));
+      console.log("User ID:", userId);
+      console.log("Votes:", votes);
+
+      console.log("User ID:", userId);
+      console.log("Votes:", votes);
 
       try {
+        await axios.post(
+          "http://localhost:3000/api/v1/votes",
+          { userId, votes },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
         await axios.put(
           `http://localhost:3000/api/v1/users/isvisited/${userId}`,
           {},
@@ -84,7 +129,7 @@ function SuggestionPage() {
         );
         navigate("/home");
       } catch (error) {
-        console.error("Failed to succes: ", error.message);
+        console.error("Failed to update user status: ", error.message);
       }
     }
   };
@@ -122,7 +167,7 @@ function SuggestionPage() {
   return (
     <div className="suggestion-container">
       <Typography variant="h4" className="suggestion-title">
-        Welcome {userName} {userLastName} !
+        Welcome {userName} {userLastName}!
       </Typography>
       <Typography variant="body1" className="suggestion-message">
         Can you help us personalize your experience? As you rate ten movies, our
@@ -160,7 +205,7 @@ function SuggestionPage() {
             </Typography>
             <Typography variant="body1">Genre: {currentMovie.genre}</Typography>
             <img
-              src={currentMovie.imageUrl}
+              src={`https://image.tmdb.org/t/p/w500/${currentMovie.poster_path}`}
               alt={currentMovie.title}
               className="movie-image"
             />

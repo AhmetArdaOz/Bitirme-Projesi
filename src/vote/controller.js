@@ -24,17 +24,27 @@ const getVotesByUserId = (req, res) => {
   });
 };
 
-const addVote = (req, res) => {
-  const { user_id, movie_id, vote } = req.body;
-  // Add vote to the database
-  pool.query(queries.addVote, [user_id, movie_id, vote], (error, results) => {
-    if (error) {
-      console.error("Error adding vote:", error);
-      res.status(500).send("Error adding vote");
-    } else {
-      res.status(201).send("Vote added Successfully!");
+const addVote = async (req, res) => {
+  const { votes } = req.body;
+  console.log("Received votes:", votes);
+
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    for (const vote of votes) {
+      const { user_id, movie_id, vote: userVote } = vote;
+      console.log("Adding vote:", user_id, movie_id, userVote);
+      await client.query(queries.addVote, [user_id, movie_id, userVote]);
     }
-  });
+    await client.query("COMMIT");
+    res.status(201).send("Votes added successfully!");
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error("Error adding votes:", error);
+    res.status(500).send("Error adding votes");
+  } finally {
+    client.release();
+  }
 };
 
 const removeVote = (req, res) => {

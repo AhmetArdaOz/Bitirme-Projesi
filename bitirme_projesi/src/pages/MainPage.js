@@ -29,9 +29,13 @@ export default function MainPage() {
     <>
       <div className="home">
         <Featured></Featured>
+        <h2 className="recomend-title">
+          According to your ratings you should watch them
+        </h2>
         <Listed></Listed>
+        <h2 className="genre-title">Watch this Genre</h2>
         <Listed></Listed>
-        <Listed></Listed>
+        <h2 className="genre-title">Watch this Genre</h2>
         <Listed></Listed>
       </div>
       <div className="aipage">
