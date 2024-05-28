@@ -18,7 +18,6 @@ const MoviePage = () => {
   const [averageUserScore, setAverageUserScore] = useState(0);
   const { id } = useParams();
 
-  // Retrieve the user ID from localStorage
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {

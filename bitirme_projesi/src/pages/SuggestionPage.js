@@ -226,7 +226,7 @@ function SuggestionPage() {
                   sx={{ color: "#e50914" }}
                   precision={0.5}
                   onChange={handleRatingChange}
-                  max={5}
+                  max={10}
                   className="movie-rating"
                 />
               </div>

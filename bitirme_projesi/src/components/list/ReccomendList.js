@@ -1,39 +1,149 @@
 import React, { useEffect, useState } from "react";
-import ListedItem from "../listitem/ListedItem";
+import ListedItemReco from "../listitem/ListedItemReco";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./listed.css";
 import axios from "axios";
 
+const TMDB_API_KEY = "b920124b119c33ce96596988f22abbcf"; // Ensure this is your valid API key
+
 export default function RecoList() {
   const [movieData, setMovieData] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const API_KEY = "b920124b119c33ce96596988f22abbcf";
-  const MOVIE_COUNT = 50000;
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchMovies();
+    fetchUserVotes();
   }, []);
 
-  const fetchMovies = () => {
-    const totalPages = Math.ceil(MOVIE_COUNT / 200);
+  const fetchUserVotes = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/v1/votes");
+      const votes = response.data;
 
-    for (let page = 1; page < totalPages; page++) {
-      axios
-        .get(`https://api.themoviedb.org/3/movie/popular`, {
-          params: {
-            api_key: API_KEY,
-            page: page,
-          },
-        })
-        .then((response) => response.data)
-        .then((data) => {
-          if (data) {
-            setMovieData([...movieData, ...data.results]);
-          }
-        });
+      // Filter votes to only include those greater than 5
+      const filteredVotes = votes.filter((vote) => vote.vote > 5);
+
+      if (filteredVotes.length > 0) {
+        // Assuming the user's favorite movie is the one they rated the highest
+        const favoriteMovie = filteredVotes.reduce((prev, current) =>
+          prev.vote > current.vote ? prev : current
+        );
+
+        console.log(`Favorite movie ID: ${favoriteMovie.movie_id}`); // Debugging
+        fetchMovieTitle(favoriteMovie.movie_id);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching votes:", error);
+      setLoading(false);
+    }
+  };
+
+  const fetchMovieTitle = async (movieId) => {
+    try {
+      const url = `https://api.themoviedb.org/3/movie/${movieId}`;
+      console.log(`Fetching movie title from URL: ${url}`);
+      const response = await axios.get(url, {
+        params: { api_key: TMDB_API_KEY },
+      });
+
+      const movieTitle = response.data.title;
+      console.log(`Fetched movie title: ${movieTitle}`); // Debugging
+      fetchRecommendations(movieTitle);
+    } catch (error) {
+      console.error("Error fetching movie title:", error);
+      setLoading(false);
+    }
+  };
+
+  const fetchRecommendations = async (movieTitle) => {
+    if (!movieTitle) {
+      console.error("No movie title provided");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const encodedTitle = encodeURIComponent(movieTitle);
+      console.log(`Fetching recommendations for movie title: ${encodedTitle}`);
+      const response = await axios.get("http://127.0.0.1:5000/recommend", {
+        params: { movie: encodedTitle }, // Ensure the movie title is encoded correctly
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3001",
+        },
+      });
+
+      console.log("Response from recommendation API:", response.data);
+
+      // Check if the expected properties exist in the response
+      if (
+        response.data.recommended_movies_name &&
+        response.data.recommended_movies_poster
+      ) {
+        const { recommended_movies_name, recommended_movies_poster } =
+          response.data;
+
+        // Fetch complete movie details for recommended movies
+        const recommendedMovies = await Promise.all(
+          recommended_movies_name.map(async (title, index) => {
+            const movieId = await fetchMovieId(title);
+            if (movieId) {
+              return fetchMovieDetails(movieId);
+            } else {
+              return null;
+            }
+          })
+        );
+
+        setMovieData(recommendedMovies.filter((movie) => movie !== null));
+      } else {
+        console.error("Unexpected response structure:", response.data);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching recommendations:", error);
+      setLoading(false);
+    }
+  };
+
+  const fetchMovieId = async (title) => {
+    try {
+      const url = `https://api.themoviedb.org/3/search/movie`;
+      console.log(`Fetching movie ID for title: ${title} from URL: ${url}`);
+      const response = await axios.get(url, {
+        params: {
+          api_key: TMDB_API_KEY,
+          query: title,
+        },
+      });
+
+      if (response.data.results.length > 0) {
+        return response.data.results[0].id;
+      } else {
+        console.error(`No movie ID found for title: ${title}`);
+        return null;
+      }
+    } catch (error) {
+      console.error(`Error fetching movie ID for title ${title}:`, error);
+      return null;
+    }
+  };
+
+  const fetchMovieDetails = async (movieId) => {
+    try {
+      const url = `https://api.themoviedb.org/3/movie/${movieId}`;
+      console.log(`Fetching movie details for ID: ${movieId} from URL: ${url}`);
+      const response = await axios.get(url, {
+        params: { api_key: TMDB_API_KEY },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching movie details for ID ${movieId}:`, error);
+      return null;
     }
   };
 
@@ -57,7 +167,7 @@ export default function RecoList() {
       >
         <Slider {...settings}>
           {movieData.map((movie, index) => (
-            <ListedItem key={movie.id} movie={movie} index={index} />
+            <ListedItemReco key={index} movie={movie} index={index} />
           ))}
         </Slider>
       </div>
