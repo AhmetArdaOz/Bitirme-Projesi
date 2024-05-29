@@ -18,21 +18,47 @@ export default function RecoList() {
 
   const fetchUserVotes = async () => {
     try {
+      // Retrieve the user ID from localStorage
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        console.error("User ID not found in localStorage");
+        setLoading(false);
+        return;
+      }
+
+      console.log("Retrieved user ID from localStorage:", userId);
+
       const response = await axios.get("http://localhost:3000/api/v1/votes");
+      console.log("API response:", response);
+
       const votes = response.data;
+      if (!Array.isArray(votes)) {
+        console.error("Votes data is not an array:", votes);
+        setLoading(false);
+        return;
+      }
 
-      // Filter votes to only include those greater than 5
-      const filteredVotes = votes.filter((vote) => vote.vote > 5);
+      console.log("Fetched votes:", votes);
 
-      if (filteredVotes.length > 0) {
-        // Assuming the user's favorite movie is the one they rated the highest
-        const favoriteMovie = filteredVotes.reduce((prev, current) =>
-          prev.vote > current.vote ? prev : current
+      // Filter votes for the specified user and with vote greater than 5
+      const userVotes = votes.filter((vote) => {
+        console.log(`Processing vote: ${JSON.stringify(vote)}`);
+        return vote.user_id == userId && vote.vote > 5;
+      });
+
+      console.log("Filtered user votes:", userVotes);
+
+      if (userVotes.length > 0) {
+        console.log(
+          "Favorite movies:",
+          userVotes.map((vote) => vote.movie_id)
         );
 
-        console.log(`Favorite movie ID: ${favoriteMovie.movie_id}`); // Debugging
-        fetchMovieTitle(favoriteMovie.movie_id);
+        for (const vote of userVotes) {
+          await fetchMovieTitle(vote.movie_id);
+        }
       } else {
+        console.log("No votes above 5 for this user.");
         setLoading(false);
       }
     } catch (error) {
@@ -51,7 +77,7 @@ export default function RecoList() {
 
       const movieTitle = response.data.title;
       console.log(`Fetched movie title: ${movieTitle}`); // Debugging
-      fetchRecommendations(movieTitle);
+      await fetchRecommendations(movieTitle); // Await this to ensure recommendations are fetched before continuing
     } catch (error) {
       console.error("Error fetching movie title:", error);
       setLoading(false);
@@ -68,8 +94,8 @@ export default function RecoList() {
     try {
       const encodedTitle = encodeURIComponent(movieTitle);
       console.log(`Fetching recommendations for movie title: ${encodedTitle}`);
-      const response = await axios.get("http://127.0.0.1:5000/recommend", {
-        params: { movie: encodedTitle }, // Ensure the movie title is encoded correctly
+      const response = await axios.get(`http://127.0.0.1:5000/recommend`, {
+        params: { movie: encodedTitle },
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "http://localhost:3001",
@@ -98,7 +124,10 @@ export default function RecoList() {
           })
         );
 
-        setMovieData(recommendedMovies.filter((movie) => movie !== null));
+        setMovieData((prevData) => [
+          ...prevData,
+          ...recommendedMovies.filter((movie) => movie !== null),
+        ]);
       } else {
         console.error("Unexpected response structure:", response.data);
       }

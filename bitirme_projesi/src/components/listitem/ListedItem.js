@@ -19,7 +19,6 @@ export default function ListedItem({ movie }) {
         )}
         <div className="itemInfo">
           <div className="itemInfoTop">
-            <span>{movie.runtime} min</span>
             <span>{movie.title}</span>
             <span>
               (
