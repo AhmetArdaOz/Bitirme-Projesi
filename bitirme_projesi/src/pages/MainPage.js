@@ -61,13 +61,21 @@ export default function MainPage() {
     <>
       <div className="home">
         <Featured />
-        <h2 className="recomend-title">
+        <h2
+          className="recomend-title"
+          style={{ marginTop: "10px", marginLeft: "10px" }}
+        >
           According to your ratings you should watch them
         </h2>
         <RecoList />
         {randomGenres.map((genre) => (
           <div key={genre.id}>
-            <h2 className="genre-title">Watch this Genre: {genre.name}</h2>
+            <h2
+              className="genre-title"
+              style={{ marginTop: "10px", marginLeft: "10px" }}
+            >
+              Watch this Genre: {genre.name}
+            </h2>
             <Listed genreId={genre.id} />
           </div>
         ))}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ListedItemReco from "../listitem/ListedItemReco";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,19 +6,23 @@ import "slick-carousel/slick/slick-theme.css";
 import "./listed.css";
 import axios from "axios";
 
-const TMDB_API_KEY = "b920124b119c33ce96596988f22abbcf"; // Ensure this is your valid API key
+const TMDB_API_KEY = "b920124b119c33ce96596988f22abbcf";
 
 export default function RecoList() {
   const [movieData, setMovieData] = useState([]);
+  const [fetchedMovieIds, setFetchedMovieIds] = useState(new Set());
   const [loading, setLoading] = useState(true);
+  const isFetching = useRef(false); // Add this ref to track fetching status
 
   useEffect(() => {
-    fetchUserVotes();
+    if (!isFetching.current) {
+      isFetching.current = true; // Mark as fetching
+      fetchUserVotes();
+    }
   }, []);
 
   const fetchUserVotes = async () => {
     try {
-      // Retrieve the user ID from localStorage
       const userId = localStorage.getItem("userId");
       if (!userId) {
         console.error("User ID not found in localStorage");
@@ -40,7 +44,6 @@ export default function RecoList() {
 
       console.log("Fetched votes:", votes);
 
-      // Filter votes for the specified user and with vote greater than 5
       const userVotes = votes.filter((vote) => {
         console.log(`Processing vote: ${JSON.stringify(vote)}`);
         return vote.user_id == userId && vote.vote > 5;
@@ -68,6 +71,11 @@ export default function RecoList() {
   };
 
   const fetchMovieTitle = async (movieId) => {
+    if (fetchedMovieIds.has(movieId)) {
+      console.log(`Movie ID ${movieId} already fetched. Skipping...`);
+      return;
+    }
+
     try {
       const url = `https://api.themoviedb.org/3/movie/${movieId}`;
       console.log(`Fetching movie title from URL: ${url}`);
@@ -76,8 +84,10 @@ export default function RecoList() {
       });
 
       const movieTitle = response.data.title;
-      console.log(`Fetched movie title: ${movieTitle}`); // Debugging
-      await fetchRecommendations(movieTitle); // Await this to ensure recommendations are fetched before continuing
+      console.log(`Fetched movie title: ${movieTitle}`);
+
+      setFetchedMovieIds((prevIds) => new Set(prevIds).add(movieId));
+      await fetchRecommendations(movieTitle);
     } catch (error) {
       console.error("Error fetching movie title:", error);
       setLoading(false);
@@ -104,7 +114,6 @@ export default function RecoList() {
 
       console.log("Response from recommendation API:", response.data);
 
-      // Check if the expected properties exist in the response
       if (
         response.data.recommended_movies_name &&
         response.data.recommended_movies_poster
@@ -112,12 +121,15 @@ export default function RecoList() {
         const { recommended_movies_name, recommended_movies_poster } =
           response.data;
 
-        // Fetch complete movie details for recommended movies
         const recommendedMovies = await Promise.all(
           recommended_movies_name.map(async (title, index) => {
             const movieId = await fetchMovieId(title);
-            if (movieId) {
-              return fetchMovieDetails(movieId);
+            if (movieId && !fetchedMovieIds.has(movieId)) {
+              const movie = await fetchMovieDetails(movieId);
+              if (movie) {
+                setFetchedMovieIds((prevIds) => new Set(prevIds).add(movieId));
+              }
+              return movie;
             } else {
               return null;
             }

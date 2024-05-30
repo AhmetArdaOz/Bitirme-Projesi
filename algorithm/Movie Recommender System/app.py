@@ -37,7 +37,7 @@ def recommend(movie):
         logging.error(f"Error in recommend function: {str(e)}")
         raise
 
-# Logging the current working directory and file paths for debugging
+
 current_directory = os.getcwd()
 logging.debug(f"Current working directory: {current_directory}")
 
@@ -58,7 +58,7 @@ except Exception as e:
 def recommend_movies():
     try:
         movie = request.args.get('movie')
-        movie = requests.utils.unquote(movie)  # Ensure the movie title is correctly decoded
+        movie = requests.utils.unquote(movie)  
         logging.debug(f"Received movie title: {movie}")
         if movie:
             recommended_movies_name, recommended_movies_poster = recommend(movie)

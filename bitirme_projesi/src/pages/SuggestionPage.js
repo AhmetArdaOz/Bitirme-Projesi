@@ -89,7 +89,7 @@ function SuggestionPage() {
 
     const votes = updatedMovies.map((movie) => ({
       movieId: movie.id,
-      rating: movie.rating || 0, // Default to 0 if not rated
+      rating: movie.rating || 0,
     }));
 
     if (!updatedMovies[currentMovieIndex + 1]) {
