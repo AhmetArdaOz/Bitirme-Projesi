@@ -1,15 +1,18 @@
 import React from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import "../styling/NavBar.css";
+import MovieHubLogo from "../MOVIEHUB.png";
 
 export default function NavBar() {
   return (
     <div id="navBar">
       <AppBar id="AppBar">
         <Toolbar id="AppBar-Toolbar">
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            MovieHub
-          </Typography>
+          <img
+            src={MovieHubLogo}
+            alt="MovieHub Logo"
+            style={{ height: "80px", width: "80px", marginLeft: "870px" }}
+          />
         </Toolbar>
       </AppBar>
     </div>

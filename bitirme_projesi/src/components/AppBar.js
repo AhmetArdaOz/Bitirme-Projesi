@@ -18,6 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import "../styling/AppBar.css";
 import { Link } from "react-router-dom";
+import MovieHubLogo from "../MOVIEHUB.png";
 
 export default function MainBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -72,9 +73,11 @@ export default function MainBar() {
             <MenuIcon />
           </IconButton>
           <Link to="/home" className="AppBar-Link">
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              MovieHub
-            </Typography>
+            <img
+              src={MovieHubLogo}
+              alt="MovieHub Logo"
+              style={{ height: "70px", width: "70px" }}
+            />
           </Link>
           <div style={{ flexGrow: 1 }} />
           <Typography>{userName}</Typography>
