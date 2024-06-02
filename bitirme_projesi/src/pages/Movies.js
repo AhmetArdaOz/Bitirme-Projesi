@@ -18,6 +18,7 @@ import {
   Rating,
   AccordionSummary,
   AccordionDetails,
+  Skeleton,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -40,12 +41,13 @@ export default function Movies() {
   const [genres, setGenres] = useState([]);
   const [page, setPage] = useState(1);
   const [movieData, setMovieData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const moviesPerPage = 6;
 
   useEffect(() => {
-    const fetchGenres = async () => {
+    const fetchGenresAndMovies = async () => {
       try {
-        const response = await axios.get(
+        const genresResponse = await axios.get(
           `https://api.themoviedb.org/3/genre/movie/list`,
           {
             params: {
@@ -53,23 +55,12 @@ export default function Movies() {
             },
           }
         );
-        setGenres(response.data.genres);
-      } catch (error) {
-        console.error("Error fetching genres:", error);
-      }
-    };
+        setGenres(genresResponse.data.genres);
 
-    fetchGenres();
-  }, []);
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      let movies = [];
-      const totalPages = Math.ceil(MOVIE_COUNT / 50);
-
-      try {
+        let movies = [];
+        const totalPages = Math.ceil(MOVIE_COUNT / 50);
         for (let page = 1; page <= totalPages; page++) {
-          const response = await axios.get(
+          const moviesResponse = await axios.get(
             `https://api.themoviedb.org/3/movie/popular`,
             {
               params: {
@@ -78,18 +69,18 @@ export default function Movies() {
               },
             }
           );
-          const data = response.data;
-          if (data && data.results) {
-            movies = [...movies, ...data.results];
-          }
+          const data = moviesResponse.data;
+          movies = [...movies, ...data.results];
         }
         setMovieData(movies);
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchMovies();
+    fetchGenresAndMovies();
   }, []);
 
   const handleClick = () => {
@@ -126,7 +117,7 @@ export default function Movies() {
     (movie) =>
       (filter.genre === "" ||
         movie.genre_ids.includes(parseInt(filter.genre))) &&
-      (filter.rating === 0 || movie.vote_average >= filter.rating * 2) && // Convert filter rating to 10-point scale
+      (filter.rating === 0 || movie.vote_average >= filter.rating) &&
       (filter.year === 0 ||
         new Date(movie.release_date).getFullYear() === filter.year)
   );
@@ -147,127 +138,155 @@ export default function Movies() {
       <Container className="browseMain">
         <Box className="container">
           <Box className="sidebar">
-            <Typography variant="h6" className="title">
-              Find Movies You Like:
-            </Typography>
-            <List>
-              <ListItemButton onClick={handleClick}>
-                <ListItemText>GENRE</ListItemText>
-                {open ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  {genres.map((genre, index) => (
-                    <ListItemButton
-                      key={index}
-                      onClick={() => changeFilter("genre", genre.id)}
-                    >
-                      <ListItemText>{genre.name}</ListItemText>
-                    </ListItemButton>
-                  ))}
-                </List>
-              </Collapse>
-            </List>
-            <Typography variant="h6">Rating:</Typography>
-            <Rating
-              name="rating-filter"
-              sx={{ color: "#e50914" }}
-              value={filter.rating}
-              onChange={(event, newValue) => changeFilter("rating", newValue)}
-              precision={0.5}
-            />
-            <Typography variant="h6" className="title">
-              Filter by Year:
-            </Typography>
-            <input
-              type="number"
-              value={filter.year}
-              onChange={(event) =>
-                changeFilter("year", parseInt(event.target.value))
-              }
-              className="year-filter"
-            />
-            <Box
-              sx={{ display: "flex", flexDirection: "row", marginTop: "5px" }}
-            >
-              <IconButton onClick={clearFilters} color="inherit">
-                <ClearIcon />
-                <Typography variant="body1" className="clear-all-text">
-                  Clear All
+            {loading ? (
+              <>
+                <Skeleton variant="text" height={30} width="80%" />
+                <Skeleton variant="rectangular" height={40} width="100%" />
+                <Skeleton variant="text" height={30} width="80%" />
+                <Skeleton variant="rectangular" height={60} width="100%" />
+                <Skeleton variant="text" height={30} width="80%" />
+                <Skeleton variant="rectangular" height={50} width="100%" />
+              </>
+            ) : (
+              <>
+                <Typography variant="h6" className="title">
+                  Find Movies You Like:
                 </Typography>
-              </IconButton>
-            </Box>
+                <List>
+                  <ListItemButton onClick={handleClick}>
+                    <ListItemText>GENRE</ListItemText>
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {genres.map((genre, index) => (
+                        <ListItemButton
+                          key={index}
+                          onClick={() => changeFilter("genre", genre.id)}
+                        >
+                          <ListItemText>{genre.name}</ListItemText>
+                        </ListItemButton>
+                      ))}
+                    </List>
+                  </Collapse>
+                </List>
+                <Typography variant="h6">Rating:</Typography>
+                <Rating
+                  name="rating-filter"
+                  sx={{ color: "#e50914" }}
+                  value={filter.rating}
+                  onChange={(event, newValue) =>
+                    changeFilter("rating", newValue)
+                  }
+                  precision={0.5}
+                  max={10}
+                />
+                <Typography variant="h6" className="title">
+                  Filter by Year:
+                </Typography>
+                <input
+                  type="number"
+                  value={filter.year}
+                  onChange={(event) =>
+                    changeFilter("year", parseInt(event.target.value))
+                  }
+                  className="year-filter"
+                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginTop: "5px",
+                  }}
+                >
+                  <IconButton onClick={clearFilters} color="inherit">
+                    <ClearIcon />
+                    <Typography variant="body1" className="clear-all-text">
+                      Clear All
+                    </Typography>
+                  </IconButton>
+                </Box>
+              </>
+            )}
           </Box>
           <Box className="movieContainer">
-            {currentMovies.map((movie, index) => (
-              <Box key={index} className="movieCardWrapper">
-                <Card className="movieCard">
-                  <CardActionArea
-                    component={RouterLink}
-                    to={`/moviepage/${movie.id}`}
-                  >
-                    <CardMedia
-                      component="img"
-                      image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                      alt={movie.title}
-                      className="MovieCard-Image"
-                    />
-                    <CardContent className="MovieCard-Content">
-                      <Typography
-                        gutterBottom
-                        variant="h5"
-                        component="div"
-                        className="MovieCard-Title"
-                      >
-                        {movie.title}
-                      </Typography>
-                      <Typography
-                        gutterBottom
-                        component="div"
-                        className="MovieCard-Title"
-                      >
-                        Release Date: {movie.release_date}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        className="MovieCard-Genre"
-                      >
-                        Genres: {getGenreNames(movie.genre_ids)}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                    className="rating"
-                  >
-                    <Rating
-                      sx={{ color: "#e50914" }}
-                      name="simple-controlled"
-                      value={movie.vote_average}
-                      max={10}
-                      precision={0.5}
-                      size="small"
-                      readOnly
-                    />
+            {loading
+              ? Array.from(new Array(moviesPerPage)).map((_, index) => (
+                  <Box key={index} className="movieCardWrapper">
+                    <Skeleton variant="rectangular" height={400} width={280} />
+                    <Skeleton variant="text" height={20} width="90%" />
+                    <Skeleton variant="text" height={20} width="85%" />
                   </Box>
-                </Card>
-              </Box>
-            ))}
+                ))
+              : currentMovies.map((movie, index) => (
+                  <Box key={index} className="movieCardWrapper">
+                    <Card className="movieCard">
+                      <CardActionArea
+                        component={RouterLink}
+                        to={`/moviepage/${movie.id}`}
+                      >
+                        <CardMedia
+                          component="img"
+                          image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                          alt={movie.title}
+                          className="MovieCard-Image"
+                        />
+                        <CardContent className="MovieCard-Content">
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            component="div"
+                            className="MovieCard-Title"
+                          >
+                            {movie.title}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            className="MovieCard-Genre"
+                          >
+                            Genres: {getGenreNames(movie.genre_ids)}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                        className="rating"
+                      >
+                        <Rating
+                          sx={{ color: "#e50914" }}
+                          name="simple-controlled"
+                          value={movie.vote_average}
+                          max={10}
+                          precision={0.5}
+                          size="small"
+                          readOnly
+                        />
+                      </Box>
+                    </Card>
+                  </Box>
+                ))}
           </Box>
         </Box>
         <Box className="pagination-container">
-          <Pagination
-            count={Math.ceil(filteredMovies.length / moviesPerPage)}
-            page={page}
-            onChange={handlePageChange}
-            color="standard"
-          />
+          {loading ? (
+            <Skeleton variant="rectangular" height={40} width={200} />
+          ) : (
+            <>
+              <Pagination
+                count={Math.ceil(filteredMovies.length / moviesPerPage)}
+                page={page}
+                onChange={handlePageChange}
+                color="standard"
+              />
+            </>
+          )}
         </Box>
+
         <div className="aipage">
           <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>
             <AccordionSummary

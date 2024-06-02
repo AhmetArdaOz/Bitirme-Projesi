@@ -8,6 +8,12 @@ export default function ListedItem({ movie }) {
     return null;
   }
 
+  const truncateText = (text, maxLength) => {
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
+  };
+
   return (
     <Link to={`/moviepage/${movie.id}`} className="listItem-link">
       <div className="listItem">
@@ -26,7 +32,7 @@ export default function ListedItem({ movie }) {
               )
             </span>
           </div>
-          <div className="desc">{movie.overview}</div>
+          <div className="desc">{truncateText(movie.overview, 200)}</div>
           <div className="genre">
             {movie.genres && movie.genres.map((genre) => genre.name).join(", ")}
           </div>

@@ -23,20 +23,6 @@
   position: relative;
 }
 
-.list .wrapper .sliderArrow {
-  width: 50px;
-  height: 100%;
-  background-color: black;
-  color: white;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  cursor: pointer;
-  opacity: 0.5;
-  z-index: 20;
-}
-
 .wrapper .left {
   left: 0;
 }

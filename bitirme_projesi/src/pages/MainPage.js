@@ -18,6 +18,7 @@ export default function MainPage() {
   const [genres, setGenres] = useState([]);
   const [randomGenres, setRandomGenres] = useState([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -69,7 +70,7 @@ export default function MainPage() {
         </h2>
         <RecoList />
         {randomGenres.map((genre) => (
-          <div key={genre.id}>
+          <div key={genre.id} style={{ marginBottom: "20px" }}>
             <h2
               className="genre-title"
               style={{ marginTop: "10px", marginLeft: "10px" }}

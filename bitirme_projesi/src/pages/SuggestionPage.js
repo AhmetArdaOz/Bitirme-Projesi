@@ -43,19 +43,25 @@ function SuggestionPage() {
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/popular`,
+        `https://api.themoviedb.org/3/discover/movie`,
         {
           params: {
             api_key: API_KEY,
+            sort_by: "popularity.desc",
+            "release_date.lte": "2016-12-31", // Ensures movies are from 2017 or earlier
             page: 1,
           },
         }
       );
 
       const movies = response.data.results;
-      const shuffledMovies = shuffleArray(movies);
-      const selectedMovies = shuffledMovies.slice(0, 10);
-      setMovies(selectedMovies);
+      if (movies.length > 0) {
+        const shuffledMovies = shuffleArray(movies);
+        const selectedMovies = shuffledMovies.slice(0, 10);
+        setMovies(selectedMovies);
+      } else {
+        console.log("No movies found for the specified criteria.");
+      }
     } catch (error) {
       console.error("Error fetching movies:", error);
     }
@@ -94,12 +100,12 @@ function SuggestionPage() {
 
     if (!updatedMovies[currentMovieIndex + 1]) {
       const token = localStorage.getItem("token");
-      const decodedToken = jwtDecode(token); // Decode the JWT to get userId
+      const decodedToken = jwtDecode(token);
       const userId = decodedToken.userId;
       const votes = updatedMovies.map((movie) => ({
         user_id: userId,
         movie_id: movie.id,
-        vote: movie.rating || 0, // Default to 0 if not rated
+        vote: movie.rating || 0,
       }));
       console.log("User ID:", userId);
       console.log("Votes:", votes);
