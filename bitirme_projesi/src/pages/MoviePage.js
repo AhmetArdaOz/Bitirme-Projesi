@@ -203,7 +203,11 @@ const MoviePage = () => {
               expandIcon={<ArrowDownwardIcon sx={{ color: "white" }} />}
               aria-controls="panel1-content"
               id="panel1-header"
-              sx={{ color: "white" }}
+              sx={{
+                color: "white",
+                backgroundColor: "#2c2c2c",
+                borderTop: "1px solid #444",
+              }}
             >
               <Typography>Talk to Famous Movie Stars</Typography>
             </AccordionSummary>

@@ -23,7 +23,7 @@ export default function MovieManagement() {
       }}
     >
       <h2>Add Movie</h2>
-      <Accordion>
+      <Accordion sx={{ backgroundColor: "white" }}>
         <AccordionSummary>Movie Item</AccordionSummary>
         <AccordionDetails>
           <TextField
