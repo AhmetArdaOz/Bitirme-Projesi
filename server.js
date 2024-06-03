@@ -2,6 +2,7 @@ const express = require("express");
 const userRoutes = require("./src/user/routes");
 const voteRoutes = require("./src/vote/routes");
 const movieRoutes = require("./src/movie/routes");
+const feedbackRoutes = require("./src/feedback/routes");
 const app = express();
 const port = 3000;
 const bcrypt = require("bcrypt");
@@ -12,13 +13,12 @@ const queries = require("./src/user/queries");
 const cors = require("cors");
 
 app.use(cors());
-
 app.use(express.json());
 SECRET_KEY = "262ggsdsh2436342rygryrwyw";
+
 app.post("/api/v1/register", async (req, res) => {
   try {
     const { name, surname, email, password } = req.body;
-
     const existingUser = await pool.query(
       "SELECT * FROM users WHERE email = $1",
       [email]
@@ -26,7 +26,6 @@ app.post("/api/v1/register", async (req, res) => {
     if (existingUser.rows.length > 0) {
       return res.status(400).json({ message: "Same Email" });
     }
-
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(queries.addUser, [
       name,
@@ -44,11 +43,9 @@ app.post("/api/v1/register", async (req, res) => {
 app.post("/api/v1/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-
     const result = await pool.query("SELECT * FROM users WHERE email = $1", [
       email,
     ]);
-
     const user = result.rows[0];
     if (!user) {
       return res.status(400).json({ message: "Invalid Credentials" });
@@ -80,7 +77,7 @@ function verifyToken(req, res, next) {
     return res.status(401).json({ message: "Missing token" });
   }
   try {
-    const decoded = jwt.verify(token, "262ggsdsh2436342rygryrwyw");
+    const decoded = jwt.verify(token, SECRET_KEY);
     req.user = decoded;
     next();
   } catch (error) {
@@ -100,5 +97,6 @@ app.get("/", (req, res) => {
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/votes", voteRoutes);
 app.use("/api/v1/movies", movieRoutes);
+app.use("/api/v1/feedback", feedbackRoutes);
 
 app.listen(port, () => console.log(`app listening on port ${port}`));

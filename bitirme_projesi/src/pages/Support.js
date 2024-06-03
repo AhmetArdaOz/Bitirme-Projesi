@@ -5,7 +5,7 @@ import {
   TextField,
   Button,
   ThemeProvider,
-  Accordion
+  Accordion,
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import theme from "../components/theme/theme";
@@ -13,7 +13,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import AiPage from "../components/ChatAi";
-import "../styling/Support.css"
+import "../styling/Support.css";
 
 const ContactUs = () => {
   const [name, setName] = useState("");
@@ -21,8 +21,25 @@ const ContactUs = () => {
   const [message, setMessage] = useState("");
   const [messageSent, setMessageSent] = useState(false);
 
-  const handleMessage = () => {
-    setMessageSent(true);
+  const handleMessage = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/api/v1/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (response.ok) {
+        setMessageSent(true);
+      } else {
+        console.error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -73,13 +90,7 @@ const ContactUs = () => {
               width: "100%",
             }}
           >
-            <form
-              style={{ width: "70%" }}
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleMessage();
-              }}
-            >
+            <form style={{ width: "70%" }} onSubmit={handleMessage}>
               <TextField
                 fullWidth
                 label="Your Name"
@@ -167,7 +178,7 @@ const ContactUs = () => {
               id="panel1-header"
               sx={{ color: "white" }}
             >
-          <Typography>Talk to Famous Movie Stars</Typography>
+              <Typography>Talk to Famous Movie Stars</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <AiPage />

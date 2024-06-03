@@ -3,13 +3,13 @@ import { Tabs, Tab, Box, Container, ThemeProvider } from "@mui/material";
 import UserManagement from "../components/UserManagement";
 import MovieManagement from "../components/MovieManagement";
 import FeedbackManagement from "../components/FeedbackManagement";
-import NotDefinedManagement from "../components/NotDefinedManagement";
+import VoteManagement from "../components/VoteManagement";
 import theme from "../components/theme/theme";
-import { Accordion,Typography } from '@mui/material';
+import { Accordion, Typography } from "@mui/material";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import AiPage from '../components/ChatAi';
+import AiPage from "../components/ChatAi";
 
 export default function AdminPage() {
   const [value, setValue] = React.useState(0);
@@ -28,7 +28,7 @@ export default function AdminPage() {
           <Tabs value={value} onChange={handleChange} centered>
             <Tab label="Movie Management" style={{ color: "white" }} />
             <Tab label="User Management" style={{ color: "white" }} />
-            <Tab label="NotDefined Management" style={{ color: "white" }} />
+            <Tab label="Vote Management" style={{ color: "white" }} />
             <Tab label="Feedback Management" style={{ color: "white" }} />
           </Tabs>
         </Box>
@@ -40,7 +40,7 @@ export default function AdminPage() {
           <UserManagement />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <NotDefinedManagement />
+          <VoteManagement />
         </TabPanel>
         <TabPanel value={value} index={3}>
           <FeedbackManagement />
@@ -61,20 +61,20 @@ function TabPanel(props) {
         </Box>
       )}
       <div className="aipage">
-          <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>
-            <AccordionSummary
-              expandIcon={<ArrowDownwardIcon sx={{ color: "white" }} />}
-              aria-controls="panel1-content"
-              id="panel1-header"
-              sx={{ color: "white" }}
-            >
-          <Typography>Talk to Famous Movie Stars</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <AiPage />
-            </AccordionDetails>
-          </Accordion>
-        </div>
+        <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>
+          <AccordionSummary
+            expandIcon={<ArrowDownwardIcon sx={{ color: "white" }} />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+            sx={{ color: "white" }}
+          >
+            <Typography>Talk to Famous Movie Stars</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <AiPage />
+          </AccordionDetails>
+        </Accordion>
+      </div>
     </div>
   );
 }
