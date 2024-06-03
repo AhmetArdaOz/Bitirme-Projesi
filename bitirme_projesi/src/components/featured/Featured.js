@@ -22,7 +22,7 @@ export default function Featured() {
         {
           params: {
             api_key: API_KEY,
-            page: 1, // You can adjust this if you want to fetch more pages
+            page: 1,
           },
         }
       );
