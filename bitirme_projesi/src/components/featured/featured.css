@@ -6,6 +6,7 @@
 .title {
   font-size: 100px;
   margin-bottom: 10px;
+  text-shadow: 2px 2px black;
 }
 
 .featured img {
@@ -30,6 +31,7 @@
 
 .featured .info .desc {
   margin: 20px 0px;
+  text-shadow: 2px 2px black;
 }
 .featured .info .buttons {
   display: flex;
