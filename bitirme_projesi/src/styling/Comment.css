@@ -1,0 +1,46 @@
+.dialog-title {
+  background-color: #1c1c1c;
+  color: #f3ecd6;
+  padding: 16px;
+  border-bottom: 1px solid #444;
+}
+
+.dialog-content {
+  background-color: #1c1c1c;
+  color: #fff;
+  padding: 16px;
+}
+
+.dialog-actions {
+  background-color: #1c1c1c;
+  border-top: 1px solid #444;
+  padding: 8px 16px;
+}
+
+.dialog-button {
+  color: #e50914;
+}
+
+.dialog-textfield .MuiInputBase-input {
+  color: #fff;
+}
+
+.dialog-textfield .MuiInput-underline:before {
+  border-bottom: 1px solid #444;
+}
+
+.dialog-textfield .MuiInput-underline:after {
+  border-bottom: 2px solid #e50914;
+}
+
+.dialog-textfield .MuiInputLabel-root {
+  color: #f3ecd6;
+}
+
+.dialog-textfield .MuiInputLabel-root.Mui-focused {
+  color: #e50914;
+}
+
+.dialog-textfield .MuiInput-underline.Mui-focused:after {
+  border-bottom-color: #e50914;
+}

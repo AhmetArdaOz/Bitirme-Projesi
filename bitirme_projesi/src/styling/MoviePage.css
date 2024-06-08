@@ -7,7 +7,6 @@
   justify-content: flex-start;
   padding: 20px;
   min-height: 100vh;
-
   background-color: #141414; /* Assuming a dark background for the page */
 }
 
@@ -137,7 +136,61 @@
   margin-bottom: 10px;
 }
 
-.MuiAccordionDetails-root {
-  /* background-color: #2c2c2c !important;
-  border-top: 1px solid #444 !important; */
+.comment-button {
+  margin-top: 20px !important;
+  color: #e50914 !important;
+  border-color: #e50914 !important;
+}
+
+.comment-button:hover {
+  background-color: #e50914;
+  color: #fff;
+}
+
+.comment-dialog .MuiDialog-paper {
+  background-color: #1c1c1c;
+  color: #fff;
+  min-width: 600px;
+}
+
+.comment-dialog .MuiDialogTitle-root {
+  color: #e50914;
+}
+
+.comment-dialog .MuiButton-root {
+  color: #e50914;
+}
+
+.comment-dialog .MuiButton-root:hover {
+  background-color: #e50914;
+  color: #fff;
+}
+
+.comment-textfield {
+  width: 100%;
+}
+
+.comments-section {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 10px;
+  padding: 20px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.comments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 20px;
+}
+
+.comment-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  color: #fff;
 }

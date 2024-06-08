@@ -68,7 +68,7 @@ function TabPanel(props) {
             id="panel1-header"
             sx={{ color: "white" }}
           >
-            <Typography>Talk to Famous Movie Stars</Typography>
+            <Typography>Talk to ChatBot</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <AiPage />

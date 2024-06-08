@@ -19,6 +19,9 @@ import {
   AccordionSummary,
   AccordionDetails,
   Skeleton,
+  Fade,
+  Zoom,
+  Slide,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -137,17 +140,8 @@ export default function Movies() {
     <>
       <Container className="browseMain">
         <Box className="container">
-          <Box className="sidebar">
-            {loading ? (
-              <>
-                <Skeleton variant="text" height={30} width="80%" />
-                <Skeleton variant="rectangular" height={40} width="100%" />
-                <Skeleton variant="text" height={30} width="80%" />
-                <Skeleton variant="rectangular" height={60} width="100%" />
-                <Skeleton variant="text" height={30} width="80%" />
-                <Skeleton variant="rectangular" height={50} width="100%" />
-              </>
-            ) : (
+          <Slide in={true} direction="down" timeout={1000}>
+            <Box className="sidebar">
               <>
                 <Typography variant="h6" className="title">
                   Find Movies You Like:
@@ -207,8 +201,8 @@ export default function Movies() {
                   </IconButton>
                 </Box>
               </>
-            )}
-          </Box>
+            </Box>
+          </Slide>
           <Box className="movieContainer">
             {loading
               ? Array.from(new Array(moviesPerPage)).map((_, index) => (
@@ -219,56 +213,58 @@ export default function Movies() {
                   </Box>
                 ))
               : currentMovies.map((movie, index) => (
-                  <Box key={index} className="movieCardWrapper">
-                    <Card className="movieCard">
-                      <CardActionArea
-                        component={RouterLink}
-                        to={`/moviepage/${movie.id}`}
-                      >
-                        <CardMedia
-                          component="img"
-                          image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                          alt={movie.title}
-                          className="MovieCard-Image"
-                        />
-                        <CardContent className="MovieCard-Content">
-                          <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="div"
-                            className="MovieCard-Title"
-                          >
-                            {movie.title}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            className="MovieCard-Genre"
-                          >
-                            Genres: {getGenreNames(movie.genre_ids)}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                        className="rating"
-                      >
-                        <Rating
-                          sx={{ color: "#e50914" }}
-                          name="simple-controlled"
-                          value={movie.vote_average}
-                          max={10}
-                          precision={0.5}
-                          size="small"
-                          readOnly
-                        />
-                      </Box>
-                    </Card>
-                  </Box>
+                  <Fade in={true} timeout={index * 500} key={index}>
+                    <Box className="movieCardWrapper">
+                      <Card className="movieCard">
+                        <CardActionArea
+                          component={RouterLink}
+                          to={`/moviepage/${movie.id}`}
+                        >
+                          <CardMedia
+                            component="img"
+                            image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                            alt={movie.title}
+                            className="MovieCard-Image"
+                          />
+                          <CardContent className="MovieCard-Content">
+                            <Typography
+                              gutterBottom
+                              variant="h5"
+                              component="div"
+                              className="MovieCard-Title"
+                            >
+                              {movie.title}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              color="textSecondary"
+                              className="MovieCard-Genre"
+                            >
+                              Genres: {getGenreNames(movie.genre_ids)}
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                          className="rating"
+                        >
+                          <Rating
+                            sx={{ color: "#e50914" }}
+                            name="simple-controlled"
+                            value={movie.vote_average}
+                            max={10}
+                            precision={0.5}
+                            size="small"
+                            readOnly
+                          />
+                        </Box>
+                      </Card>
+                    </Box>
+                  </Fade>
                 ))}
           </Box>
         </Box>
@@ -288,19 +284,21 @@ export default function Movies() {
         </Box>
 
         <div className="aipage">
-          <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>
-            <AccordionSummary
-              expandIcon={<ArrowDownwardIcon sx={{ color: "white" }} />}
-              aria-controls="panel1-content"
-              id="panel1-header"
-              sx={{ color: "white" }}
-            >
-              <Typography>Talk to Famous Movie Stars</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <AiPage />
-            </AccordionDetails>
-          </Accordion>
+          <Zoom in={true} timeout={1500}>
+            <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>
+              <AccordionSummary
+                expandIcon={<ArrowDownwardIcon sx={{ color: "white" }} />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+                sx={{ color: "white" }}
+              >
+                <Typography>Talk to ChatBot</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <AiPage />
+              </AccordionDetails>
+            </Accordion>
+          </Zoom>
         </div>
       </Container>
     </>

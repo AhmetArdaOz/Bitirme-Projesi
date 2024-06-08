@@ -3,6 +3,7 @@ const userRoutes = require("./src/user/routes");
 const voteRoutes = require("./src/vote/routes");
 const movieRoutes = require("./src/movie/routes");
 const feedbackRoutes = require("./src/feedback/routes");
+const commentRoutes = require("./src/comment/routes");
 const app = express();
 const port = 3000;
 const bcrypt = require("bcrypt");
@@ -98,5 +99,6 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/votes", voteRoutes);
 app.use("/api/v1/movies", movieRoutes);
 app.use("/api/v1/feedback", feedbackRoutes);
+app.use("/api/v1/comments", commentRoutes);
 
 app.listen(port, () => console.log(`app listening on port ${port}`));

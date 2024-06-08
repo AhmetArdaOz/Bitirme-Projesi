@@ -15,6 +15,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AlertSnackbar from "./SnackBar";
+import Grow from "@mui/material/Grow";
+import Fade from "@mui/material/Fade";
+import Zoom from "@mui/material/Zoom";
 
 function Copyright(props) {
   return (
@@ -91,82 +94,97 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container
-        component="main"
-        maxWidth="xs"
-        sx={{ backgroundColor: "white", borderRadius: "10px", height: "%100" }}
-      >
-        <CssBaseline />
-        <Box
+      <Zoom in={true} timeout={1000}>
+        <Container
+          component="main"
+          maxWidth="xs"
           sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            backgroundColor: "white",
+            borderRadius: "10px",
+            height: "%100",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5" className="signInTitle">
-            Sign in
-          </Typography>
+          <CssBaseline />
           <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Grow in={true} timeout={1500}>
+              <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+                <LockOutlinedIcon />
+              </Avatar>
+            </Grow>
+            <Fade in={true} timeout={2000}>
+              <Typography component="h1" variant="h5" className="signInTitle">
+                Sign in
+              </Typography>
+            </Fade>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link component={RouterLink} to="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+              <Fade in={true} timeout={2500}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Fade>
+              <Fade in={true} timeout={3000}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Fade>
+              <Fade in={true} timeout={3500}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign In
+                </Button>
+              </Fade>
+              <Grid container>
+                <Grid item>
+                  <Link component={RouterLink} to="/signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-        <AlertSnackbar
-          openAlert={openAlert}
-          setOpenAlert={setOpenAlert}
-          message={message}
-          severity={severity}
-        />
-      </Container>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+          <AlertSnackbar
+            openAlert={openAlert}
+            setOpenAlert={setOpenAlert}
+            message={message}
+            severity={severity}
+          />
+        </Container>
+      </Zoom>
     </ThemeProvider>
   );
 }
