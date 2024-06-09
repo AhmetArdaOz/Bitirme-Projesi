@@ -48,7 +48,7 @@ function SuggestionPage() {
           params: {
             api_key: API_KEY,
             sort_by: "popularity.desc",
-            "release_date.lte": "2016-12-31", // Ensures movies are from 2017 or earlier
+            "release_date.lte": "2016-12-31",
             page: 1,
           },
         }

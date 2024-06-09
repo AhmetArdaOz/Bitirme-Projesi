@@ -26,7 +26,6 @@ export default function AdminPage() {
         </h2>
         <Box sx={{ width: "100%", marginTop: "50px" }}>
           <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Movie Management" style={{ color: "white" }} />
             <Tab label="User Management" style={{ color: "white" }} />
             <Tab label="Vote Management" style={{ color: "white" }} />
             <Tab label="Feedback Management" style={{ color: "white" }} />
@@ -34,15 +33,12 @@ export default function AdminPage() {
         </Box>
 
         <TabPanel value={value} index={0}>
-          <MovieManagement />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
           <UserManagement />
         </TabPanel>
-        <TabPanel value={value} index={2}>
+        <TabPanel value={value} index={1}>
           <VoteManagement />
         </TabPanel>
-        <TabPanel value={value} index={3}>
+        <TabPanel value={value} index={2}>
           <FeedbackManagement />
         </TabPanel>
       </Container>
