@@ -98,7 +98,10 @@ export default function MainBar() {
                 Admin
               </MenuItem>
             )}
-            <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+            <MenuItem onClick={() => handleDrawerItemClick("history")}>
+              Vote History
+            </MenuItem>
+            <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>

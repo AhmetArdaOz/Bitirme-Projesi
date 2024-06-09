@@ -17,7 +17,7 @@ const getVoteById = (req, res) => {
 };
 
 const getVotesByUserId = (req, res) => {
-  const id = parseInt(req.params.id);
+  const id = parseInt(req.params.user_id);
   pool.query(queries.getVotesByUserId, [id], (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);

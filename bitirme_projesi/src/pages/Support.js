@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Typography,
@@ -22,6 +23,7 @@ const ContactUs = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [messageSent, setMessageSent] = useState(false);
+  const navigate = useNavigate();
 
   const handleMessage = async (e) => {
     e.preventDefault();
@@ -36,6 +38,9 @@ const ContactUs = () => {
 
       if (response.ok) {
         setMessageSent(true);
+        setTimeout(() => {
+          navigate("/home");
+        }, 3000);
       } else {
         console.error("Failed to send message");
       }

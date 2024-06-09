@@ -19,6 +19,7 @@ import SuggestionPage from "./pages/SuggestionPage";
 import WelcomePage from "./pages/WelcomePage";
 import MoviePage from "./pages/MoviePage";
 import AdminPage from "./pages/AdminPage";
+import HistoryPage from "./components/History";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
         <Route path="about" element={<About />} />
         <Route path="/moviepage/:id" element={<MoviePage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/history" element={<HistoryPage />} />
       </Route>
     </>
   )

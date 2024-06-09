@@ -12,11 +12,11 @@ export default function RecoList() {
   const [movieData, setMovieData] = useState([]);
   const [fetchedMovieIds, setFetchedMovieIds] = useState(new Set());
   const [loading, setLoading] = useState(true);
-  const isFetching = useRef(false); // Add this ref to track fetching status
+  const isFetching = useRef(false);
 
   useEffect(() => {
     if (!isFetching.current) {
-      isFetching.current = true; // Mark as fetching
+      isFetching.current = true;
       fetchUserVotes();
     }
   }, []);

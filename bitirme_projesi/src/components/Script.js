@@ -48,8 +48,8 @@ export default function Aichat() {
   const speakText = (text) => {
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "en-US"; // Set language to English (US)
-      utterance.rate = 1; // Adjust the rate (0.1 to 10, 1 is the normal rate)
+      utterance.lang = "en-US";
+      utterance.rate = 1;
       utterance.onstart = () => console.log("Speech started");
       utterance.onend = () => console.log("Speech ended");
       utterance.onerror = (event) =>
@@ -118,18 +118,18 @@ export default function Aichat() {
 
         const finalMessage = `${gptMessage} Here are some recommendations: ${recommendations}`;
         messageElement.textContent = finalMessage;
-        speakText(finalMessage); // Add voice response here
+        speakText(finalMessage);
       } else {
         const errorMessage =
           "Sorry, I couldn't find any recommendations for that movie.";
         messageElement.textContent = errorMessage;
-        speakText(errorMessage); // Add voice response here
+        speakText(errorMessage);
       }
     } catch (error) {
       console.error("Error fetching recommendations:", error);
       const errorMessage = "Ooops! Something went wrong. Please try again.";
       messageElement.textContent = errorMessage;
-      speakText(errorMessage); // Add voice response here
+      speakText(errorMessage);
     } finally {
       chatbox.scrollTo(0, chatbox.scrollHeight);
     }
