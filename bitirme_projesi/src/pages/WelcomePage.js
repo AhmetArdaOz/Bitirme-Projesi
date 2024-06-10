@@ -52,7 +52,7 @@ export default function WelcomePage() {
                 to="/signin"
                 fullWidth
               >
-                Sign In
+                Lets Get Started
               </Button>
             </Zoom>
           </Box>

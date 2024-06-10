@@ -62,24 +62,26 @@ export default function MainPage() {
     <>
       <div className="home">
         <Featured />
-        <h2
-          className="recomend-title"
-          style={{ marginTop: "10px", marginLeft: "10px" }}
-        >
-          According to your ratings you should watch them
-        </h2>
-        <RecoList />
-        {randomGenres.map((genre) => (
-          <div key={genre.id} style={{ marginBottom: "20px" }}>
-            <h2
-              className="genre-title"
-              style={{ marginTop: "10px", marginLeft: "10px" }}
-            >
-              Watch this Genre: {genre.name}
-            </h2>
-            <Listed genreId={genre.id} />
-          </div>
-        ))}
+        <div className="movie-list">
+          <h2
+            className="recomend-title"
+            style={{ marginTop: "10px", marginLeft: "10px" }}
+          >
+            According to your ratings you should watch them
+          </h2>
+          <RecoList />
+          {randomGenres.map((genre) => (
+            <div key={genre.id} style={{ marginBottom: "20px" }}>
+              <h2
+                className="genre-title"
+                style={{ marginTop: "10px", marginLeft: "10px" }}
+              >
+                Watch this Genre: {genre.name}
+              </h2>
+              <Listed genreId={genre.id} />
+            </div>
+          ))}
+        </div>
       </div>
       <div className="aipage">
         <Accordion sx={{ backgroundColor: "#1c1c1c", color: "white" }}>

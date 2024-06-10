@@ -3,6 +3,11 @@
   position: relative;
 }
 
+.desc-featured {
+  margin-bottom: 15px;
+  text-shadow: 2px 2px black;
+}
+
 .title {
   font-size: 100px;
   margin-bottom: 10px;

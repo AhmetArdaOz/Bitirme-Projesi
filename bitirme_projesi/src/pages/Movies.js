@@ -15,13 +15,14 @@ import {
   Pagination,
   Container,
   Accordion,
-  Rating,
   AccordionSummary,
   AccordionDetails,
   Skeleton,
   Fade,
   Zoom,
   Slide,
+  Rating,
+  TextField,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -38,8 +39,9 @@ export default function Movies() {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState({
     genre: "",
-    rating: 0,
     year: 0,
+    rating: 0,
+    name: "",
   });
   const [genres, setGenres] = useState([]);
   const [page, setPage] = useState(1);
@@ -95,17 +97,15 @@ export default function Movies() {
       ...filter,
       [key]: value,
     });
-    if (key === "rating") {
-      setOpen(false);
-    }
     setPage(1);
   };
 
   const clearFilters = () => {
     setFilter({
       genre: "",
-      rating: 0,
       year: 0,
+      rating: 0,
+      name: "",
     });
     setPage(1);
   };
@@ -120,9 +120,12 @@ export default function Movies() {
     (movie) =>
       (filter.genre === "" ||
         movie.genre_ids.includes(parseInt(filter.genre))) &&
-      (filter.rating === 0 || movie.vote_average >= filter.rating) &&
       (filter.year === 0 ||
-        new Date(movie.release_date).getFullYear() === filter.year)
+        new Date(movie.release_date).getFullYear() === filter.year) &&
+      (filter.rating === 0 ||
+        Math.floor(movie.vote_average) === filter.rating) &&
+      (filter.name === "" ||
+        movie.title.toLowerCase().includes(filter.name.toLowerCase()))
   );
 
   const indexOfLastMovie = page * moviesPerPage;
@@ -146,7 +149,38 @@ export default function Movies() {
                 <Typography variant="h6" className="title">
                   Find Movies You Like:
                 </Typography>
-                <List>
+                <TextField
+                  variant="outlined"
+                  value={filter.name}
+                  onChange={(event) => changeFilter("name", event.target.value)}
+                  className="name-filter"
+                  placeholder="Enter movie name"
+                  InputProps={{
+                    style: {
+                      backgroundColor: "#333",
+                      color: "#fff",
+                    },
+                  }}
+                  sx={{
+                    marginTop: "10px",
+                    "& .MuiOutlinedInput-root": {
+                      "&:hover fieldset": {
+                        borderColor: "#e50914",
+                      },
+                    },
+                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                      {
+                        borderColor: "#e50914",
+                      },
+                    "& .MuiInputLabel-root": {
+                      color: "#e50914",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": {
+                      color: "#e50914",
+                    },
+                  }}
+                />
+                <List sx={{ marginTop: "10px" }}>
                   <ListItemButton onClick={handleClick}>
                     <ListItemText>GENRE</ListItemText>
                     {open ? <ExpandLess /> : <ExpandMore />}
@@ -164,18 +198,11 @@ export default function Movies() {
                     </List>
                   </Collapse>
                 </List>
-                <Typography variant="h6">Rating:</Typography>
-                <Rating
-                  name="rating-filter"
-                  sx={{ color: "#e50914" }}
-                  value={filter.rating}
-                  onChange={(event, newValue) =>
-                    changeFilter("rating", newValue)
-                  }
-                  precision={0.5}
-                  max={10}
-                />
-                <Typography variant="h6" className="title">
+                <Typography
+                  variant="h6"
+                  className="title"
+                  sx={{ marginTop: "10px" }}
+                >
                   Filter by Year:
                 </Typography>
                 <input
@@ -186,11 +213,29 @@ export default function Movies() {
                   }
                   className="year-filter"
                 />
+                <Typography
+                  variant="h6"
+                  className="title"
+                  sx={{ marginTop: "20px" }}
+                >
+                  Filter by Rating:
+                </Typography>
+                <Rating
+                  name="rating-filter"
+                  value={filter.rating}
+                  onChange={(event, newValue) => {
+                    changeFilter("rating", newValue);
+                  }}
+                  max={10}
+                  precision={1}
+                  sx={{ color: "#e50914" }}
+                />
+
                 <Box
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-                    marginTop: "5px",
+                    marginTop: "10px",
                   }}
                 >
                   <IconButton onClick={clearFilters} color="inherit">
@@ -253,7 +298,9 @@ export default function Movies() {
                           className="rating"
                         >
                           <Rating
-                            sx={{ color: "#e50914" }}
+                            sx={{
+                              color: "#e50914",
+                            }}
                             name="simple-controlled"
                             value={movie.vote_average}
                             max={10}

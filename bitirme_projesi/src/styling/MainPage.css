@@ -8,6 +8,9 @@
   font-weight: bolder;
   text-align: left;
 }
+.movie-list {
+  padding: 20px !important;
+}
 
 body {
   font-family: Arial, sans-serif;
@@ -103,4 +106,8 @@ body {
   outline: none;
   padding: 5px;
   border-radius: 5px;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }

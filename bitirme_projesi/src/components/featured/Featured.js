@@ -49,7 +49,7 @@ export default function Featured() {
       />
       <div className="info">
         <p className="title">{featuredMovie.title}</p>
-        <span className="desc">{featuredMovie.overview}</span>
+        <span className="desc-featured">{featuredMovie.overview}</span>
         <div className="buttons">
           <Link to={`/moviepage/${featuredMovie.id}`}>
             <button className="play">
