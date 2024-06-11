@@ -46,7 +46,7 @@ export default function RecoList() {
 
       const userVotes = votes.filter((vote) => {
         console.log(`Processing vote: ${JSON.stringify(vote)}`);
-        return vote.user_id == userId && vote.vote > 5;
+        return vote.user_id == userId && vote.vote >= 7;
       });
 
       console.log("Filtered user votes:", userVotes);
@@ -61,7 +61,7 @@ export default function RecoList() {
           await fetchMovieTitle(vote.movie_id);
         }
       } else {
-        console.log("No votes above 5 for this user.");
+        console.log("No votes above 7 for this user.");
         setLoading(false);
       }
     } catch (error) {

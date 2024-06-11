@@ -63,6 +63,7 @@ export default function Aichat() {
   const generateResponse = async (incomingChatLi) => {
     const API_URL = "https://api.openai.com/v1/chat/completions";
     const messageElement = incomingChatLi.querySelector("p");
+
     const prompts = [
       `I like ${userMessage}, suggest me one.`,
       `${userMessage} is so good, can you suggest me something like that?`,

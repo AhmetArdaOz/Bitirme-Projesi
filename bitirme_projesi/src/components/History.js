@@ -16,10 +16,9 @@ import "../styling/History.css";
 const API_KEY = "b920124b119c33ce96596988f22abbcf";
 
 const HistoryPage = () => {
-  const [votes, setVotes] = useState([]);
+  const [votesWithMovies, setVotesWithMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [movies, setMovies] = useState([]);
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
@@ -39,14 +38,16 @@ const HistoryPage = () => {
         console.log("API response status:", response.status);
         console.log("API response data:", response.data);
 
-        const votes = response.data;
-        setVotes(votes);
+        const votes = response.data.filter((vote) => vote.vote !== 0); // Filter out votes with a value of 0
 
         const moviePromises = votes.map((vote) =>
-          fetchMovieDetails(vote.movie_id)
+          fetchMovieDetails(vote.movie_id).then((movie) => ({
+            vote: vote.vote,
+            movie,
+          }))
         );
-        const movieResults = await Promise.all(moviePromises);
-        setMovies(movieResults);
+        const votesWithMovies = await Promise.all(moviePromises);
+        setVotesWithMovies(votesWithMovies);
       } catch (error) {
         console.error("Error fetching votes:", error);
         setError("Failed to fetch votes. Please try again later.");
@@ -90,12 +91,12 @@ const HistoryPage = () => {
           Voting History
         </Typography>
       </Zoom>
-      {votes.length === 0 ? (
+      {votesWithMovies.length === 0 ? (
         <Typography>No votes found.</Typography>
       ) : (
         <Grid container className="movie-container" spacing={3}>
-          {movies.map((movie, index) => (
-            <Fade in={true} timeout={(index + 1) * 500} key={votes[index].id}>
+          {votesWithMovies.map(({ vote, movie }, index) => (
+            <Fade in={true} timeout={(index + 1) * 500} key={index}>
               <Grid item className="movie-card-wrapper">
                 <Card className="movie-card">
                   {movie && (
@@ -111,7 +112,7 @@ const HistoryPage = () => {
                       {movie ? movie.title : "Unknown Movie"}
                     </Typography>
                     <Typography variant="body1" className="movie-card-vote">
-                      Your Vote: {votes[index].vote}
+                      Your Vote: {vote}
                     </Typography>
                     {movie && (
                       <Typography variant="body2" className="movie-card-genre">

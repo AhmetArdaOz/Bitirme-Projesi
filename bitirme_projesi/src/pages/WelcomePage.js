@@ -30,15 +30,17 @@ export default function WelcomePage() {
         <Box id="upperContentBox">
           <Box id="upperContent">
             <Fade in={true} timeout={1500}>
-              <Typography id="upperContentHeader1">
+              <Typography
+                id="upperContentHeader1"
+                sx={{ textShadow: "2px 2px black" }}
+              >
                 Welcome to MovieHub
               </Typography>
             </Fade>
 
             <Fade in={true} timeout={2000}>
               <Typography id="upperContentHeader2">
-                Unlimited movies, TV shows, and more. Watch anywhere. Cancel
-                anytime.
+                Discover your next favorite movie.
               </Typography>
             </Fade>
           </Box>
@@ -52,7 +54,7 @@ export default function WelcomePage() {
                 to="/signin"
                 fullWidth
               >
-                Lets Get Started
+                Let's Get Started
               </Button>
             </Zoom>
           </Box>
@@ -194,9 +196,6 @@ export default function WelcomePage() {
           </Fade>
         </Grid>
       </div>
-
-      <div id="line"></div>
-      <Footer></Footer>
     </div>
   );
 }

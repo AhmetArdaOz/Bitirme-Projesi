@@ -56,7 +56,29 @@ function SuggestionPage() {
 
       const movies = response.data.results;
       if (movies.length > 0) {
-        const shuffledMovies = shuffleArray(movies);
+        const detailedMovies = await Promise.all(
+          movies.map(async (movie) => {
+            const movieDetails = await axios.get(
+              `https://api.themoviedb.org/3/movie/${movie.id}`,
+              {
+                params: {
+                  api_key: API_KEY,
+                },
+              }
+            );
+            return { ...movie, genres: movieDetails.data.genres };
+          })
+        );
+
+        detailedMovies.forEach((movie) => {
+          console.log(
+            `Movie: ${movie.title}, Genres: ${movie.genres
+              .map((g) => g.name)
+              .join(", ")}`
+          );
+        });
+
+        const shuffledMovies = shuffleArray(detailedMovies);
         const selectedMovies = shuffledMovies.slice(0, 10);
         setMovies(selectedMovies);
       } else {
@@ -93,11 +115,6 @@ function SuggestionPage() {
     setWatched(false);
     setRating(0);
 
-    const votes = updatedMovies.map((movie) => ({
-      movieId: movie.id,
-      rating: movie.rating || 0,
-    }));
-
     if (!updatedMovies[currentMovieIndex + 1]) {
       const token = localStorage.getItem("token");
       const decodedToken = jwtDecode(token);
@@ -107,11 +124,6 @@ function SuggestionPage() {
         movie_id: movie.id,
         vote: movie.rating || 0,
       }));
-      console.log("User ID:", userId);
-      console.log("Votes:", votes);
-
-      console.log("User ID:", userId);
-      console.log("Votes:", votes);
 
       try {
         await axios.post(
@@ -150,6 +162,11 @@ function SuggestionPage() {
 
   const currentMovie = movies[currentMovieIndex];
 
+  const genres =
+    currentMovie && currentMovie.genres
+      ? currentMovie.genres.map((genre) => genre.name).join(", ")
+      : "N/A";
+
   if (!currentMovie) {
     return (
       <div className="finalMessage-container">
@@ -172,10 +189,14 @@ function SuggestionPage() {
 
   return (
     <div className="suggestion-container">
-      <Typography variant="h4" className="suggestion-title">
+      <Typography variant="h3" className="suggestion-title">
         Welcome {userName} {userLastName}!
       </Typography>
-      <Typography variant="body1" className="suggestion-message">
+      <Typography
+        variant="h5"
+        className="suggestion-message"
+        sx={{ padding: "120px", textAlign: "center" }}
+      >
         Can you help us personalize your experience? As you rate ten movies, our
         algorithm will better understand your preferences and offer tailored
         recommendations. Even if you haven't seen some of them, your input is
@@ -184,6 +205,9 @@ function SuggestionPage() {
       <Button
         sx={{
           backgroundColor: "#e50914",
+          width: "300px",
+          height: "80px",
+          fontSize: "30px",
           "&:hover": { backgroundColor: "#e34149" },
         }}
         variant="contained"
@@ -206,10 +230,7 @@ function SuggestionPage() {
           <DialogContent
             className={`dialogBody ${watched ? "watched-content" : ""}`}
           >
-            <Typography variant="body1">
-              Director: {currentMovie.director}
-            </Typography>
-            <Typography variant="body1">Genre: {currentMovie.genre}</Typography>
+            <Typography variant="body1">Genre: {genres}</Typography>
             <img
               src={`https://image.tmdb.org/t/p/w500/${currentMovie.poster_path}`}
               alt={currentMovie.title}
