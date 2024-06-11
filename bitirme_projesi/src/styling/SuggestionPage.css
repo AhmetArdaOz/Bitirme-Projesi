@@ -116,8 +116,8 @@
 }
 
 .watched-content {
-  overflow-y: auto !important; /* Allow vertical scrolling */
-  overflow-x: hidden !important; /* Hide horizontal scrollbar */
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }
 
 .watched-content::-webkit-scrollbar {

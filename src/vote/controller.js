@@ -52,7 +52,6 @@ const removeVote = (req, res) => {
 
   pool.query(queries.getVoteById, [id], (error, results) => {
     if (error) {
-      // Handle query execution error
       res.status(500).send("Error removing vote.");
       return;
     }

@@ -7,7 +7,7 @@
   justify-content: flex-start;
   padding: 20px;
   min-height: 100vh;
-  background-color: #141414; /* Assuming a dark background for the page */
+  background-color: #141414;
 }
 
 .trailer-container {
@@ -30,13 +30,13 @@
   flex-direction: row;
   align-items: flex-start;
   width: 100%;
-  max-width: 1200px; /* Increased max-width for a larger image */
+  max-width: 1200px;
   margin-bottom: 20px;
   margin-top: 100px;
 }
 
 .image-container {
-  flex: 2; /* Increased flex to make the image larger */
+  flex: 2;
   margin-right: 20px;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .rating-container {
-  flex: 3; /* Adjusted flex to balance with the larger image */
+  flex: 3;
   display: flex;
   flex-direction: column;
   background-color: #1c1c1c;
@@ -63,12 +63,12 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #f3ecd6; /* Highlighting the title */
+  color: #f3ecd6;
 }
 
 .info-container {
   width: 100%;
-  max-width: 1200px; /* Increased max-width for a larger overview section */
+  max-width: 1200px;
   padding: 20px;
   border-radius: 8px;
   color: #fff;
@@ -101,7 +101,7 @@
   font-size: 20px;
   margin-top: 10px;
   margin-bottom: 5px;
-  color: #f3ecd6; /* Highlighting the section titles */
+  color: #f3ecd6;
 }
 
 .rating-general,

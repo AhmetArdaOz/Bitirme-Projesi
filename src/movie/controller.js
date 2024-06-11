@@ -38,7 +38,7 @@ const addMovie = (req, res) => {
     vote_average,
     vote_count,
   } = req.body;
-  //add movie to db
+
   pool.query(
     queries.addMovie,
     [
@@ -74,7 +74,6 @@ const removeMovie = (req, res) => {
 
   pool.query(queries.getMovieById, [id], (error, results) => {
     if (error) {
-      // Handle query execution error
       res.status(500).send("Error removing movie.");
       return;
     }

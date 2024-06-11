@@ -7,7 +7,7 @@ import axios from "axios";
 
 const UserManagement = () => {
   const [rows, setRows] = useState([]);
-  const [pageSize, setPageSize] = useState(10); // Default page size set to 10
+  const [pageSize, setPageSize] = useState(10);
 
   const fetchUsers = async () => {
     try {

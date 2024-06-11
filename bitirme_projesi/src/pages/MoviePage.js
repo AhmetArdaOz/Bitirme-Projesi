@@ -97,7 +97,7 @@ const MoviePage = () => {
           `http://localhost:3000/api/v1/comments/${id}`
         );
         setComments(response.data);
-        console.log("Fetched comments:", response.data); // Log the fetched comments
+        console.log("Fetched comments:", response.data);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
@@ -145,7 +145,7 @@ const MoviePage = () => {
         movie_id: parseInt(id),
         comment,
         vote: parseFloat(value),
-        username: userName, // Use "username" to match the backend key
+        username: userName,
       });
       setComment("");
       setOpen(false);
@@ -153,7 +153,7 @@ const MoviePage = () => {
         `http://localhost:3000/api/v1/comments/${id}`
       );
       setComments(response.data);
-      console.log("Comments after submitting:", response.data); // Log the comments after submission
+      console.log("Comments after submitting:", response.data);
     } catch (error) {
       console.error("Error submitting comment:", error);
     }

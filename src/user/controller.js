@@ -19,17 +19,14 @@ const getUserById = (req, res) => {
 const addUser = (req, res) => {
   const { name, surname, email, password } = req.body;
 
-  // Check if the password field exists in the request body
   if (!password) {
     return res.status(400).send("Password is required.");
   }
 
-  // check if email exists
   pool.query(queries.checkEmailExists, [email], (error, results) => {
     if (results.rows.length) {
       res.send("Email already exists.");
     } else {
-      //add user to db
       pool.query(
         queries.addUser,
         [name, surname, email, password],
@@ -47,7 +44,6 @@ const removeUser = (req, res) => {
 
   pool.query(queries.getUserById, [id], (error, results) => {
     if (error) {
-      // Handle query execution error
       res.status(500).send("Error removing user.");
       return;
     }
